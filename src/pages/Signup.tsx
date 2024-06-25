@@ -1,12 +1,12 @@
 import { NavigationBar } from "../components/ui/navigartion-bar";
 import { FooterSimple } from "../components/ui/footer-simple";
-import { LoginForm } from "../components/ui/login";
+import { SignupForm } from "../components/ui/signup";
 
-export function Login() {
+export function Signup() {
   return (
     <>
       <NavigationBar></NavigationBar>
-      <LoginForm></LoginForm>
+      <SignupForm></SignupForm>
       <FooterSimple></FooterSimple>
     </>
   );

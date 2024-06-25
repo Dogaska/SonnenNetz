@@ -11,6 +11,7 @@ import { InvestmentFeatures } from "./pages/InvestmentFeatures";
 import { About } from "./pages/About";
 import { NotFound } from "./pages/NotFound";
 import { Login } from "./pages/Login";
+import { Signup } from "./pages/Signup";
 import { BlogArticle } from "./pages/BlogArticle";
 
 export default function App() {
@@ -44,6 +45,7 @@ export default function App() {
             element={<InvestmentFeatures />}
           />
           <Route path="/about/" element={<About />} />
+          <Route path="/signup/" element={<Signup />} />
           <Route path="/login/" element={<Login />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
