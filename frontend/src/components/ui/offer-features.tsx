@@ -10,7 +10,7 @@ import {
   investment_features_data,
   investment_features_image_data,
   investment_features_download_data,
-} from "../../../offer_features_data";
+} from "../../../data/offer_features_data";
 
 function ProjectOfferDetails() {
   return (
