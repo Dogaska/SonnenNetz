@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "corsheaders",
+    "knox",
     "users",
 ]
 
@@ -58,6 +59,10 @@ CORS_ALLOWED_ORIGINS = [
     ]
 
 AUTH_USER_MODEL = "users.CustomUser"
+
+AUTHENTICATION_BACKEND = [
+    "user.auth_backend.EmailAuthBackend"
+]
 
 
 ROOT_URLCONF = "sonnennetz.urls"
@@ -79,6 +84,10 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "sonnennetz.wsgi.application"
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',),
+}
 
 
 # Database
