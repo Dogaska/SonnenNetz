@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/home/dogaska/tech_challenge/backend/venv"
+VIRTUAL_ENV="/home/dogaska/tech_challenge/sonnennetz/backend/venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
