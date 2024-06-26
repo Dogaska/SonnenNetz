@@ -1,4 +1,5 @@
 import { SocialLogin } from "./social-button";
+import { Link } from "react-router-dom";
 
 export function LoginForm() {
   return (
@@ -75,12 +76,12 @@ export function LoginForm() {
 
           <p className="mt-10 text-center text-sm text-gray-500">
             Not a member?{" "}
-            <a
-              href="#"
+            <Link
+              to="/signup"
               className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
             >
               Create an account
-            </a>
+            </Link>
             <div className="flex w-full items-center space-x-4 mt-10 mb-10">
               <div className="flex-1 border-b border-gray-200" />
               <span className="flex items-center justify-center text-gray-400 text-lg font-normal leading-7 px-5">
