@@ -1,6 +1,6 @@
-import { NavigationBar } from "../components/ui/navigartion-bar";
-import { FooterSimple } from "../components/ui/footer-simple";
-import { ProjectTable } from "@/components/ui/project-table";
+import { NavigationBar } from "../components/common/navigartion-bar";
+import { FooterSimple } from "../components/common/footer-simple";
+import { ProjectTable } from "@/components/offers/project-table";
 
 function Projects() {
   return (

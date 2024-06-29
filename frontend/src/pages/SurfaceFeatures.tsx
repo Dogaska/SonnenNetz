@@ -1,7 +1,7 @@
-import { NavigationBar } from "../components/ui/navigartion-bar";
-import { FooterSimple } from "../components/ui/footer-simple";
-import { HeaderSurfaceFeatures } from "@/components/ui/header";
-import { SurfaceOfferDetails } from "../components/ui/offer-features";
+import { NavigationBar } from "../components/common/navigartion-bar";
+import { FooterSimple } from "../components/common/footer-simple";
+import { HeaderSurfaceFeatures } from "@/components/common/header";
+import { SurfaceOfferDetails } from "../components/offers/detail/surface-details";
 
 function SurfaceFeatures() {
   return (

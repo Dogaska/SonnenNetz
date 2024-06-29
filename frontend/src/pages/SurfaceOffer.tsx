@@ -1,13 +1,11 @@
-import { SurfaceForm } from "../components/ui/surface-form";
-import { NavigationBar } from "../components/ui/navigartion-bar";
-import { FooterSimple } from "../components/ui/footer-simple";
-import { HeaderSurfaceOffer } from "@/components/ui/header";
+import { SurfaceForm } from "../components/offers/offer/surface-form";
+import { NavigationBar } from "../components/common/navigartion-bar";
+import { FooterSimple } from "../components/common/footer-simple";
 
 export function SurfaceOffer() {
   return (
     <>
       <NavigationBar></NavigationBar>
-      <HeaderSurfaceOffer></HeaderSurfaceOffer>
       <SurfaceForm></SurfaceForm>
       <FooterSimple></FooterSimple>
     </>

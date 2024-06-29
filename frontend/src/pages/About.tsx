@@ -1,6 +1,6 @@
-import { Header } from "@/components/ui/header";
-import { NavigationBar } from "../components/ui/navigartion-bar";
-import { FooterSimple } from "../components/ui/footer-simple";
+import { Header } from "@/components/common/header";
+import { NavigationBar } from "../components/common/navigartion-bar";
+import { FooterSimple } from "../components/common/footer-simple";
 
 const links = [
   { name: "Open roles", href: "#" },

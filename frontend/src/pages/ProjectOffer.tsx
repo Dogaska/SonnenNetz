@@ -1,13 +1,11 @@
-import { ProjectForm } from "../components/ui/project-form";
-import { NavigationBar } from "../components/ui/navigartion-bar";
-import { FooterSimple } from "../components/ui/footer-simple";
-import { HeaderProjectOffer } from "../components/ui/header";
+import { ProjectForm } from "../components/offers/offer/project-form";
+import { NavigationBar } from "../components/common/navigartion-bar";
+import { FooterSimple } from "../components/common/footer-simple";
 
 export function ProjectOffer() {
   return (
     <>
       <NavigationBar></NavigationBar>
-      <HeaderProjectOffer></HeaderProjectOffer>
       <ProjectForm></ProjectForm>
       <FooterSimple></FooterSimple>
     </>

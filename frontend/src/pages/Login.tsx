@@ -1,6 +1,6 @@
-import { NavigationBar } from "../components/ui/navigartion-bar";
-import { FooterSimple } from "../components/ui/footer-simple";
-import { LoginForm } from "../components/ui/login";
+import { NavigationBar } from "../components/common/navigartion-bar";
+import { FooterSimple } from "../components/common/footer-simple";
+import { LoginForm } from "../components/authentication/login";
 
 export function Login() {
   return (
