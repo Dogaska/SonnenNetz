@@ -1,9 +1,8 @@
-import { NavigationBar } from "../components/ui/navigartion-bar";
-import { HeroSection } from "../components/ui/hero-section";
-import { Features } from "../components/ui/feature-section";
-import { FooterSimple } from "../components/ui/footer-simple";
-import { BlogCarousel } from "@/components/ui/blog-carousel";
-
+import { NavigationBar } from "../components/common/navigartion-bar";
+import { HeroSection } from "../components/homepage/hero-section";
+import { Features } from "../components/homepage/feature-section";
+import { FooterSimple } from "../components/common/footer-simple";
+import { BlogCarousel } from "../components/blog/blog-carousel";
 export function Home() {
   return (
     <>
