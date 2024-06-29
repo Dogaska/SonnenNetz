@@ -1,6 +1,6 @@
-import { NavigationBar } from "../components/ui/navigartion-bar";
-import { FooterSimple } from "../components/ui/footer-simple";
-import { ResourceList } from "../components/ui/resource-list";
+import { NavigationBar } from "../components/common/navigartion-bar";
+import { FooterSimple } from "../components/common/footer-simple";
+import { ResourceList } from "../components/resources/resource-list";
 
 function Resources() {
   return (

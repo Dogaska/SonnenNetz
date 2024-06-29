@@ -9,7 +9,7 @@ import {
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { ChevronDownIcon, Squares2X2Icon } from "@heroicons/react/20/solid";
 
-import { HeaderOffers } from "./header";
+import { HeaderOffers } from "../common/header";
 import ItemList from "./offer-list";
 
 const sortOptions = [
