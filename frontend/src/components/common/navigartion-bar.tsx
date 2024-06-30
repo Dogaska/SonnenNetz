@@ -1,4 +1,6 @@
 import { SetStateAction, useState } from "react";
+import AxiosInstance from "../axios/AxiosInstance";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Disclosure,
   DisclosureButton,
@@ -8,7 +10,6 @@ import {
   MenuItem,
   MenuItems,
 } from "@headlessui/react";
-import { Link } from "react-router-dom"; // Import Link component
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const navigation = [
@@ -28,6 +29,17 @@ export function NavigationBar() {
   const handleNavigationClick = (index: number | SetStateAction<null>) => {
     setCurrentActiveIndex(index);
   };
+
+  const navigate = useNavigate();
+
+  const logoutUser = () => {
+    AxiosInstance.post(`logoutall/`, {}).then(() => {
+      // here logout all removes all tokens for all the devices of the user (alternativ -> `logout/`)
+      localStorage.removeItem("Token");
+      navigate("/login");
+    });
+  };
+
   return (
     <Disclosure as="nav" className="bg-gray-800 z-50">
       {({ open }) => (
@@ -138,6 +150,7 @@ export function NavigationBar() {
                             focus ? "bg-gray-100" : "",
                             "block px-4 py-2 text-sm text-gray-700"
                           )}
+                          onClick={logoutUser}
                         >
                           Sign out
                         </a>
