@@ -21,12 +21,11 @@ class RegisterViewset(viewsets.ViewSet):
             serializer.save()
             return Response(serializer.data)
         else:
-            print(serializer.error_messages)
             return Response(serializer.errors, status=400) # we know it is a bad request
         
 class LoginViewset(viewsets.ViewSet):
     permission_classes = [permissions.AllowAny]
-    serializor_class = LoginSerializer
+    serializer_class = LoginSerializer
 
     def create(self, request):
         serializer = self.serializer_class(data=request.data)
@@ -40,7 +39,7 @@ class LoginViewset(viewsets.ViewSet):
                 _, token = AuthToken.objects.create(user)
                 return Response(
                     {
-                        "user": self.serializor_class(user).data,
+                        "user": self.serializer_class(user).data,
                         "token": token,
                     }
                 )

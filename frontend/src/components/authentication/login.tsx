@@ -1,5 +1,5 @@
 import { SocialLogin } from "./social-button";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import AxiosInstance from "../axios/AxiosInstance";
 import { FormHeader } from "../form/header";
@@ -8,11 +8,12 @@ import { FormLabel } from "../form/label";
 import { FormButton } from "../form/button";
 
 export function LoginForm() {
-  const { handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm();
 
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const submission = (data) => {
+  const submission = (data: { email: any; password: any }) => {
     AxiosInstance.post(`login/`, {
       email: data.email,
       password: data.password,
@@ -20,10 +21,14 @@ export function LoginForm() {
       .then((response) => {
         console.log(response);
         localStorage.setItem("Token", response.data.token);
-        navigate(-1);
+        if (location.pathname === "/login" || location.pathname === "/signup") {
+          navigate("/home"); // Redirect to home if coming from login or signup
+        } else {
+          navigate(location); // Otherwise, go back to the previous page
+        }
       })
       .catch((error) => {
-        console.error("Error during login", error);
+        console.error("Error during login", error.message);
       });
   };
 
@@ -48,6 +53,7 @@ export function LoginForm() {
                   autoComplete="email"
                   required={true}
                   placeholder="Email address"
+                  register={register}
                 ></InputBox>
               </div>
             </div>
@@ -77,6 +83,7 @@ export function LoginForm() {
                     autoComplete="password"
                     required={true}
                     placeholder="Password"
+                    register={register}
                   ></InputBox>
                 </div>
               </div>
