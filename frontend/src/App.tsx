@@ -13,6 +13,7 @@ import { NotFound } from "./pages/NotFound";
 import { Login } from "./pages/Login";
 import { Signup } from "./pages/Signup";
 import { BlogArticle } from "./pages/BlogArticle";
+import ProtectedRoute from "./components/authentication/protected-route";
 
 export default function App() {
   return (
@@ -24,25 +25,27 @@ export default function App() {
         <Route path="/resources/*" element={<BlogArticle />} />
         <Route path="/projects/" element={<Projects />} />
         {/*Offers*/}
-        <Route path="/projects/project-offer/*" element={<ProjectOffer />} />
-        <Route path="/projects/surface-offer/*" element={<SurfaceOffer />} />
-        <Route
-          path="/projects/investment-offer/*"
-          element={<InvestmentOffer />}
-        />
-        {/*Features*/}
-        <Route
-          path="/projects/project-features/*"
-          element={<ProjectFeatures />}
-        />
-        <Route
-          path="/projects/surface-features/*"
-          element={<SurfaceFeatures />}
-        />
-        <Route
-          path="/projects/investment-features/*"
-          element={<InvestmentFeatures />}
-        />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/projects/project-offer/*" element={<ProjectOffer />} />
+          <Route path="/projects/surface-offer/*" element={<SurfaceOffer />} />
+          <Route
+            path="/projects/investment-offer/*"
+            element={<InvestmentOffer />}
+          />
+          {/*Features*/}
+          <Route
+            path="/projects/project-features/*"
+            element={<ProjectFeatures />}
+          />
+          <Route
+            path="/projects/surface-features/*"
+            element={<SurfaceFeatures />}
+          />
+          <Route
+            path="/projects/investment-features/*"
+            element={<InvestmentFeatures />}
+          />
+        </Route>
         <Route path="/about/" element={<About />} />
         <Route path="/signup/" element={<Signup />} />
         <Route path="/login/" element={<Login />} />

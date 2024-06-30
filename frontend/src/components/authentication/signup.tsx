@@ -9,7 +9,7 @@ import { FormLabel } from "../form/label";
 export function SignupForm() {
   const navigate = useNavigate();
 
-  const { handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm();
 
   const submission = (data) => {
     AxiosInstance.post(`signup/`, {
@@ -19,9 +19,15 @@ export function SignupForm() {
       email: data.email,
       password: data.password,
       birthday: data.birthday,
-    }).then(() => {
-      navigate("/login");
-    });
+    })
+      .then(() => {
+        console.log(data);
+        navigate("/login");
+      })
+      .catch((error) => {
+        console.error("Error during login", error);
+        console.log(data);
+      });
   };
 
   return (
@@ -45,6 +51,7 @@ export function SignupForm() {
                   autoComplete="given-name"
                   required={true}
                   placeholder="First name"
+                  register={register}
                 ></InputBox>
               </div>
             </div>
@@ -61,6 +68,7 @@ export function SignupForm() {
                   autoComplete="family-name"
                   required={true}
                   placeholder="Last name"
+                  register={register}
                 ></InputBox>
               </div>
             </div>
@@ -77,6 +85,7 @@ export function SignupForm() {
                   autoComplete="bday"
                   required={true}
                   placeholder="dd/mm/yy"
+                  register={register}
                 ></DateInputBox>
               </div>
             </div>
@@ -93,6 +102,7 @@ export function SignupForm() {
                   autoComplete="email"
                   required={true}
                   placeholder="Email address"
+                  register={register}
                 ></InputBox>
               </div>
             </div>
@@ -109,6 +119,7 @@ export function SignupForm() {
                   autoComplete="nickname"
                   required={true}
                   placeholder="Username"
+                  register={register}
                 ></InputBox>
               </div>
             </div>
@@ -127,6 +138,7 @@ export function SignupForm() {
                   autoComplete="password"
                   required={true}
                   placeholder="Password"
+                  register={register}
                 ></InputBox>
               </div>
             </div>
@@ -145,6 +157,7 @@ export function SignupForm() {
                   autoComplete="password"
                   required={true}
                   placeholder="Repeat password"
+                  register={register}
                 ></InputBox>
               </div>
             </div>
