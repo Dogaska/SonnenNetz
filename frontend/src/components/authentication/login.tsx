@@ -66,12 +66,12 @@ export function LoginForm() {
                   </FormLabel>
                 </div>
                 <div className="text-sm">
-                  <a
-                    href="login"
-                    className="pl-2 font-semibold text-indigo-600 hover:text-indigo-500"
+                  <Link
+                    to="/request/password-reset"
+                    className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
                   >
                     Forgot password?
-                  </a>
+                  </Link>
                 </div>
               </div>
               <div>
