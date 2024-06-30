@@ -1,11 +1,17 @@
 import { useForm } from "react-hook-form";
-import { useState } from "react";
 import { PhotoIcon } from "@heroicons/react/24/solid";
 
-function InputBox(props) {
-  const { id, name, type, required, autoComplete, placeholder } = props;
-
-  const { register } = useForm();
+function InputBox(props: {
+  id: any;
+  name: any;
+  type: any;
+  required: any;
+  autoComplete: any;
+  placeholder: any;
+  register: any;
+}) {
+  const { id, name, type, required, autoComplete, placeholder, register } =
+    props;
 
   return (
     <div className="relative w-full">
@@ -22,32 +28,17 @@ function InputBox(props) {
   );
 }
 
-function DateInputBox(props) {
-  const {
-    id,
-    name,
-    type,
-    dataDateFormat,
-    required,
-    autoComplete,
-    placeholder,
-    onFocus,
-    onBlur,
-  } = props;
-
-  const { register } = useForm();
-
-  const [inputType, setInputType] = useState("text");
-
-  const handleFocus = () => {
-    setInputType("date");
-  };
-
-  const handleBlur = (event) => {
-    if (!event.target.value) {
-      setInputType("text");
-    }
-  };
+function DateInputBox(props: {
+  id: any;
+  name: any;
+  type: any;
+  required: any;
+  autoComplete: any;
+  placeholder: any;
+  register: any;
+}) {
+  const { id, name, type, required, autoComplete, placeholder, register } =
+    props;
 
   return (
     <div className="relative w-full">
@@ -59,17 +50,18 @@ function DateInputBox(props) {
         autoComplete={autoComplete}
         required={required}
         placeholder={placeholder}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
       />
     </div>
   );
 }
 
-function TextArea(props) {
-  const { id, name, placeholder } = props;
-
-  const { register } = useForm();
+function TextArea(props: {
+  id: any;
+  name: any;
+  placeholder: any;
+  register: any;
+}) {
+  const { id, name, placeholder, register } = props;
 
   return (
     <div className="relative w-full">
@@ -83,7 +75,14 @@ function TextArea(props) {
   );
 }
 
-function FileInput(props) {
+function FileInput(props: {
+  id: any;
+  htmlFor: any;
+  name: any;
+  text: any;
+  extension: any;
+  size: any;
+}) {
   const { id, htmlFor, name, text, extension, size } = props;
 
   const { register } = useForm();
@@ -101,7 +100,12 @@ function FileInput(props) {
             className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
           >
             <span>{text}</span>
-            <input id={id} name={name} type="file" className="sr-only" />
+            <input
+              id={id}
+              {...register(name)}
+              type="file"
+              className="sr-only"
+            />
           </label>
           <p className="pl-1">or drag and drop</p>
         </div>
