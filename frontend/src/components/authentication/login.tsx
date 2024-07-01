@@ -1,7 +1,8 @@
-import { SocialLogin } from "./social-button";
+import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import AxiosInstance from "../axios/AxiosInstance";
+import { SocialLogin } from "./social-button";
 import { FormHeader } from "../form/header";
 import { InputBox } from "../form/input";
 import { FormLabel } from "../form/label";
@@ -13,13 +14,14 @@ export function LoginForm() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const [showMessage, setShowMessage] = useState(false);
+
   const submission = (data: { email: any; password: any }) => {
     AxiosInstance.post(`login/`, {
       email: data.email,
       password: data.password,
     })
       .then((response) => {
-        console.log(response);
         localStorage.setItem("Token", response.data.token);
         if (location.pathname === "/login" || location.pathname === "/signup") {
           navigate("/home"); // Redirect to home if coming from login or signup
@@ -28,6 +30,7 @@ export function LoginForm() {
         }
       })
       .catch((error) => {
+        setShowMessage(true);
         console.error("Error during login", error.message);
       });
   };
@@ -40,6 +43,15 @@ export function LoginForm() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+          {showMessage ? (
+            <div>
+              <div className="flex w-full justify-center rounded-md bg-red-500 px-3 py-1.5 text-sm leading-6 text-white shadow-sm">
+                <p className="my-2 justify-center text-center text-sm text-white">
+                  Login has failed, please try again or reset your password.
+                </p>
+              </div>
+            </div>
+          ) : null}
           <form onSubmit={handleSubmit(submission)} className="space-y-6">
             <div>
               <FormLabel htmlFor="email" isRequired={true}>

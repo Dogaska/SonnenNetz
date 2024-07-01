@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import AxiosInstance from "../axios/AxiosInstance";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +11,8 @@ export function SignupForm() {
   const navigate = useNavigate();
 
   const { register, handleSubmit } = useForm();
+
+  const [showMessage, setShowMessage] = useState(false);
 
   const submission = (data: {
     first_name: any;
@@ -28,12 +31,11 @@ export function SignupForm() {
       birthday: data.birthday,
     })
       .then(() => {
-        console.log(data);
         navigate("/login");
       })
       .catch((error) => {
+        setShowMessage(true);
         console.error("Error during login", error);
-        console.log(data);
       });
   };
 
@@ -45,6 +47,15 @@ export function SignupForm() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+          {showMessage ? (
+            <div>
+              <div className="flex w-full justify-center rounded-md bg-red-500 px-3 py-1.5 text-sm leading-6 text-white shadow-sm">
+                <p className="my-2 justify-center text-center text-sm text-white">
+                  Signup has failed, please try again.
+                </p>
+              </div>
+            </div>
+          ) : null}
           <form onSubmit={handleSubmit(submission)} className="space-y-6">
             <div>
               <FormLabel htmlFor="first_name" isRequired={true}>
