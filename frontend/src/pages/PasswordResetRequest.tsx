@@ -31,6 +31,16 @@ export function PasswordResetRequest() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+          {showMessage ? (
+            <div>
+              <div className="flex w-full justify-center rounded-md bg-green-500 px-3 py-1.5 text-sm leading-6 text-white shadow-sm">
+                <p className="my-2 justify-center text-center text-sm text-white">
+                  "If your email exists you have received an email with
+                  instructions for resetting the password."
+                </p>
+              </div>
+            </div>
+          ) : null}
           <form onSubmit={handleSubmit(submission)} className="space-y-6">
             <div>
               <FormLabel htmlFor="email" isRequired={true}>
@@ -57,14 +67,6 @@ export function PasswordResetRequest() {
                 Send request
               </FormButton>
             </div>
-            {showMessage ? (
-              <div>
-                <p className="mt-10 text-center text-sm text-indigo-500">
-                  If your email exists you have received an email with
-                  instructions for resetting your password.
-                </p>
-              </div>
-            ) : null}
           </form>
         </div>
       </div>

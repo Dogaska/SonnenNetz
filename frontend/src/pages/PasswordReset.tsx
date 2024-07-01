@@ -37,6 +37,16 @@ export function PasswordReset() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+          {showMessage ? (
+            <div>
+              <div className="flex w-full justify-center rounded-md bg-green-500 px-3 py-1.5 text-sm leading-6 text-white shadow-sm">
+                <p className="my-2 justify-center text-center text-sm text-white">
+                  Your password reset was successful, you will be directed to
+                  login page...
+                </p>
+              </div>
+            </div>
+          ) : null}
           <form onSubmit={handleSubmit(submission)} className="space-y-6">
             <div>
               <div className="flex items-center justify-between">
@@ -84,14 +94,6 @@ export function PasswordReset() {
                 Reset password
               </FormButton>
             </div>
-            {showMessage ? (
-              <div>
-                <p className="mt-10 text-center text-sm text-indigo-500">
-                  Your password reset was successful, you will be directed to
-                  login page...
-                </p>
-              </div>
-            ) : null}
           </form>
         </div>
       </div>
