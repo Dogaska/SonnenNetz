@@ -13,7 +13,6 @@ export function PasswordReset() {
   const navigate = useNavigate();
   const location = useLocation();
   const { token } = useParams();
-  console.log(token);
 
   const [showMessage, setShowMessage] = useState(false);
 
