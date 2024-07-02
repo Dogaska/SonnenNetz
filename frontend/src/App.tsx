@@ -22,7 +22,7 @@ export default function App() {
         <Route index element={<Home />} />
         <Route path="/home/" element={<Home />} />
         <Route path="/resources/" element={<Resources />} />
-        <Route path="/resources/*" element={<BlogArticle />} />
+        <Route path="/resources/:slug" element={<BlogArticle />} />
         <Route path="/projects/" element={<Projects />} />
         {/*Offers*/}
         <Route element={<ProtectedRoute />}>
