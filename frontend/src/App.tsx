@@ -22,10 +22,17 @@ export default function App() {
     <div>
       <Routes>
         <Route index element={<Home />} />
+<<<<<<< HEAD
+        <Route path="/home/" element={<Home />} />
+        <Route path="/resources/" element={<Resources />} />
+        <Route path="/resources/:slug" element={<BlogArticle />} />
+        <Route path="/projects/" element={<Projects />} />
+=======
         <Route path="/home" element={<Home />} />
         <Route path="/resources" element={<Resources />} />
         <Route path="/resources/*" element={<BlogArticle />} />
         <Route path="/projects" element={<Projects />} />
+>>>>>>> 3acef8ef5cacd0b6fe54c78d963dba7731c32190
         {/*Offers*/}
         <Route element={<ProtectedRoute />}>
           <Route path="/projects/project-offer/*" element={<ProjectOffer />} />
