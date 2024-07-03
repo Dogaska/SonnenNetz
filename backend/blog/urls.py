@@ -10,7 +10,7 @@ urlpatterns = [
     path('<slug>/', BlogDetailView.as_view()),
 
     # Comment urls
-      path('<blog_slug>/comments/all/',
+    path('<blog_slug>/comments/all/',
          CommentsListView.as_view()),
     path('<blog_slug>/totalcomments/',
          CommentsAggregateView.as_view()),

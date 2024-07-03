@@ -75,7 +75,6 @@ class Comment(models.Model):
 
     id = models.CharField(primary_key=True, max_length=36,
                           default=uuid.uuid4, editable=False)
-    blog_slug = Blog.slug
     content = models.TextField(max_length=1000)
     created_at = models.DateTimeField(auto_now_add=True)
     blog = models.ForeignKey(
