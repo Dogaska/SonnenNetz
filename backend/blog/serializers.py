@@ -34,10 +34,13 @@ class CommentSerializer(ModelSerializer):
     blog_slug = SlugField(source='blog.slug', read_only=True)
 
     user_username = CharField(source='user.username', read_only=True)
-    #user_profile_image = ImageField(
-    #    source='user.profile_image', read_only=True)
+    user_first_name = CharField(source='user.first_name', read_only=True)
+    user_last_name = CharField(source='user.last_name', read_only=True)
+    user_profile_picture = ImageField(
+        source='user.profile_picture', read_only=True)
+    
     class Meta:
         model = Comment
-        fields = ['id', 'content', 'created_at', 'blog', 'blog_slug',
-                  'user', 'user_username']
+        fields = ['id', 'content', 'created_at', 'blog', 'blog_slug', 
+                  'user', 'user_username', 'user_first_name', 'user_last_name', 'user_profile_picture']
                   

@@ -7,7 +7,8 @@ User = get_user_model()
 class Offers(models.Model):
     offer_type = models.CharField(max_length=100)
     offer_location = models.CharField(max_length=255)
-    #created_at = models.DateTimeField(auto_now_add=True, auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
 
 class OfferBase(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)

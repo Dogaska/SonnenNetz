@@ -79,7 +79,6 @@ class CommentPostView(CreateAPIView):
         try:
             blog = get_object_or_404(Blog, slug=blog_slug)
             
-            
             data = {}
             data['blog'] = str(blog.id)
             data['user'] = str(request.user.id)

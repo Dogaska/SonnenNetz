@@ -58,16 +58,18 @@ function DateInputBox(props: {
 function TextArea(props: {
   id: any;
   name: any;
+  rows: any;
   placeholder: any;
   register: any;
 }) {
-  const { id, name, placeholder, register } = props;
+  const { id, name, rows, placeholder, register } = props;
 
   return (
     <div className="relative w-full">
       <textarea
         className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 focus:outline-none resize-none"
         id={id}
+        rows={rows}
         {...register(name)}
         placeholder={placeholder}
       />

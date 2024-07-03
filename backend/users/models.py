@@ -33,6 +33,9 @@ class CustomUser(AbstractUser):
     email = models.EmailField(max_length=200, unique=True)
     birthday = models.DateField(default=datetime.date.today)
     username = models.CharField(max_length=255, unique=True)
+    profession = models.CharField(max_length=50, blank=True, null=True)
+    profile_picture = models.ImageField(
+        upload_to='profile_pictures/', max_length=200, blank=True, null=True)
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username", "first_name", "last_name", "birthday"]
 
