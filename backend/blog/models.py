@@ -38,7 +38,7 @@ class Blog(models.Model):
     id = models.CharField(primary_key=True, max_length=36, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=225, unique=True)
     slug = models.SlugField(max_length=250, null=True, blank=True)
-    excerpt = models.CharField(max_length=300, null=True, blank=True) #subtitle
+    excerpt = models.CharField(max_length=300, null=True, blank=True)
     cover_image = models.ImageField(
         upload_to='blog_photos/', max_length=200, blank=True, null=True)
     content = models.TextField()

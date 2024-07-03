@@ -1,10 +1,13 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
-from .views import SurfaceOfferViewSet
 
-router = DefaultRouter()
-router.register(r'surface_offers', SurfaceOfferViewSet)
+from django.urls import path
+
+from .views import (OfferListView, OfferDetailView)
+
 
 urlpatterns = [
-    path('', include(router.urls)),
+    # Offer urls
+    path('all/', OfferListView.as_view()),
+    path('<slug>/', OfferDetailView.as_view()),
 ]

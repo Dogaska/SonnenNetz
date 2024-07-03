@@ -2,8 +2,10 @@ import { FormHeader } from "../../form/header";
 import { InputBox, DateInputBox, TextArea, FileInput } from "../../form/input";
 import { FormButton } from "../../form/button";
 import { FormLabel } from "../../form/label";
+import { useForm } from "react-hook-form";
 
 export function SurfaceForm() {
+  const { register, handleSubmit } = useForm();
   return (
     <div className="container mx-auto max-w-4xl px-4  mt-20">
       <FormHeader>Create a new investment offer</FormHeader>
@@ -21,6 +23,7 @@ export function SurfaceForm() {
                 autoComplete="given-name"
                 required={true}
                 placeholder="First name"
+                register={register}
               ></InputBox>
             </div>
           </div>
@@ -36,6 +39,7 @@ export function SurfaceForm() {
                 autoComplete="family-name"
                 required={true}
                 placeholder="Last name"
+                register={register}
               ></InputBox>
             </div>
           </div>
@@ -47,6 +51,8 @@ export function SurfaceForm() {
               id="description"
               name="description"
               placeholder="Write project description..."
+              rows={6}
+              register={register}
             ></TextArea>
           </div>
           <div>
@@ -61,6 +67,7 @@ export function SurfaceForm() {
                 autoComplete="bday"
                 required={true}
                 placeholder="dd/mm/yy"
+                register={register}
               ></DateInputBox>
             </div>
           </div>
@@ -76,6 +83,7 @@ export function SurfaceForm() {
                 autoComplete="bday"
                 required={true}
                 placeholder="dd/mm/yy"
+                register={register}
               ></DateInputBox>
             </div>
           </div>
