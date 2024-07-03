@@ -26,6 +26,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("users.urls")),
     path('api/resources/', include('blog.urls')),
+    path('api/offers/', include('offers.urls')),
     path("api/auth/", include("knox.urls")),
     path('api-auth/', include('rest_framework.urls')),
     path('summernote/', include('django_summernote.urls')),
