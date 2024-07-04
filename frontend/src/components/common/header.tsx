@@ -72,11 +72,16 @@ export function HeaderInvestmentFeatures() {
 
 export function HeaderOffers() {
   return (
-    <header className="bg-white">
-      <div className="mx-auto max-w-5xl py-20  lg:px-8 flex justify-center items-center">
-        <h1 className="text-6xl font-bold tracking-tight text-gray-900">
+    <header className="bg-white w-full">
+      <div className="mx-auto max-w-5xl py-20 lg:px-8 text-center">
+        <h1 className="text-5xl font-bold tracking-tight text-gray-900">
           Offers
         </h1>
+        <h2 className="text-xl tracking-tight text-gray-500 mt-8 italic">
+          Take a look at our different options, including projects, suitable PV
+          surfaces, and investment opportunities. Choose the one that suits you
+          best!
+        </h2>
       </div>
     </header>
   );
