@@ -104,8 +104,8 @@ export function BlogTemplate() {
 
   return (
     <>
-      <main className="pt-8 pb-16 mt-8 bg-white dark:bg-gray-900 antialiased">
-        <div className="flex justify-between px-8 mx-auto max-w-screen-lg">
+      <main className="pt-8 pb-16 bg-white dark:bg-gray-900">
+        <div className="px-8 mx-auto max-w-4xl">
           {blogData.map((post) => (
             <article
               key={post.id}
@@ -137,14 +137,14 @@ export function BlogTemplate() {
                     </div>
                   </div>
                 </address>
-                <h1 className="mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">
-                  {post.title}
-                </h1>
+                <h1 className="text-2xl font-bold">{post.title}</h1>
+                <p>{post.content}</p>
               </header>
-              <p className="lead">{post.content}</p>
-              <figure className="flex mt-5">
-                <img src={`http://localhost:8000${post.cover_image}`} alt="" />
-              </figure>
+              <img
+                src={`http://localhost:8000${post.cover_image}`}
+                alt="Blog"
+                className="h-1/2 w-auto mx-auto rounded-lg"
+              />
 
               <section className="not-format">
                 <div className="flex justify-between items-center mb-6">
@@ -152,6 +152,7 @@ export function BlogTemplate() {
                     Discussion ({commentData.length})
                   </h2>
                 </div>
+
                 <form onSubmit={handleSubmit(submission)} className="mb-6">
                   <div className="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
                     <label htmlFor="comment" className="sr-only">
@@ -175,18 +176,20 @@ export function BlogTemplate() {
                   </div>
                 </form>
                 {commentData.map((comment, index) => (
-                  <article className="p-6 mb-6 text-base bg-white rounded-lg dark:bg-gray-900">
+                  <article className="p-6 mb-6 text-base bg-gray-100 rounded-lg dark:bg-gray-900">
                     <footer className="flex justify-between items-center mb-2">
                       <div className="flex items-center">
                         <p className="inline-flex items-center mr-3 font-semibold text-sm text-gray-900 dark:text-white">
-                          <img
-                            className="mr-2 w-6 h-6 rounded-full"
-                            src={
-                              comment.user_profile_picture === null
-                                ? "http://localhost:8000/backend/media/profile_pictures/null.png"
-                                : `http://localhost:8000${comment.user_profile_picture}`
-                            }
-                          />
+                          <a href="#">
+                            <img
+                              className="mr-2 border w-6 h-6 rounded-full"
+                              src={
+                                comment.user_profile_picture === null
+                                  ? "http://localhost:8000/backend/media/profile_pictures/null.png"
+                                  : `http://localhost:8000${comment.user_profile_picture}`
+                              }
+                            />
+                          </a>
 
                           {comment.user_username}
                         </p>

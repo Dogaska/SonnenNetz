@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import AxiosInstance from "../axios/AxiosInstance";
 
-// Define an interface for the structure of each post
 interface Post {
   id: string;
   title: string;
@@ -12,30 +11,24 @@ interface Post {
   created_at: string;
   category: string;
   level: string;
-  author_username: {
-    author_profile_image: string;
-    profession: string;
-  };
+  author_username: string;
+  author_profile_image: string;
+  profession: string;
 }
 
 export function ResourceList() {
-  const [blogData, setBlogData] = useState<Post[]>([]); // Use the Post interface in the state definition
+  const [blogData, setBlogData] = useState<Post[]>([]);
 
-  const GetBlogData = () => {
-    AxiosInstance.get(`api/resources/all/`)
+  useEffect(() => {
+    AxiosInstance.get("api/resources/all/")
       .then((res) => {
         if (res.data.results && Array.isArray(res.data.results.result)) {
-          setBlogData(res.data.results.result); // Only set if result is an array
-          console.log(res.data.results.result);
+          setBlogData(res.data.results.result);
         }
       })
       .catch((error) => {
         console.error("Failed to fetch blog data:", error);
       });
-  };
-
-  useEffect(() => {
-    GetBlogData();
   }, []);
 
   const formatDate = (dateString: string | number | Date) => {
@@ -65,13 +58,20 @@ export function ResourceList() {
         return "bg-lime-100";
       case "medium":
         return "bg-sky-100";
-      case "hard":
-        return "bg-pink-100";
       case "advance":
         return "bg-rose-100";
       default:
-        return {};
+        return "bg-gray-100";
     }
+  };
+
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const pages = [1, 2, 3]; // This should be dynamically calculated based on data in a real app
+
+  const handlePageClick = (page) => {
+    setCurrentPage(page);
+    // You would also fetch new data here if needed
   };
 
   return (
@@ -79,70 +79,119 @@ export function ResourceList() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="text-center">
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Resources
+            Blogs
           </h2>
           <p className="mt-2 text-lg leading-8 text-gray-600">
             We've compiled resources to support your community energy project at
-            any stage. Filter by keyword, area, or activity, or explore our
-            stage-specific selections.
+            any stage.
           </p>
         </div>
-        <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-          {blogData.map((post) => (
+        <hr className="my-8 border-gray-300" />
+        <div className="mx-auto mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {blogData.map((post, index) => (
             <article
               key={post.id}
-              className="flex max-w-xl flex-col items-start justify-between"
+              className="flex flex-col border border-gray-300 rounded-lg p-4 shadow-sm hover:shadow-md"
+              style={{ minHeight: "30rem" }}
             >
-              <div className="flex items-center gap-x-4 text-xs">
+              <div className="flex justify-between items-center mb-2">
                 <time dateTime={post.created_at} className="text-gray-500">
                   {formatDate(post.created_at)}
                 </time>
-                <Link
-                  to={post.category}
-                  className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
-                >
-                  {post.category}
-                </Link>
-
-                <Link
-                  to={`/level/${post.level}`}
-                  className={`relative z-10 rounded-full px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100 ${getLevelStyle(
-                    post.level
-                  )}`}
-                >
-                  {post.level}
-                </Link>
-              </div>
-              <div className="group relative">
-                <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-                  <Link to={post.slug}>
-                    <span className="absolute inset-0" />
-                    {post.title}
+                <div>
+                  <Link
+                    to={post.category}
+                    className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100 mr-2"
+                  >
+                    {post.category}
                   </Link>
-                </h3>
-                <p className="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">
-                  {post.excerpt}
-                </p>
+                  <Link
+                    to={`/level/${post.level}`}
+                    className={`rounded-full px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100 ${getLevelStyle(
+                      post.level
+                    )}`}
+                  >
+                    {post.level}
+                  </Link>
+                </div>
               </div>
-              <div className="relative mt-8 flex items-center gap-x-4">
+              <Link to={post.slug}>
                 <img
-                  src={post.cover_image}
+                  src={
+                    `http://localhost:8000${post.cover_image}` ||
+                    "default-image-url.jpg"
+                  }
                   alt={post.title}
-                  className="h-10 w-10 rounded-full bg-gray-50"
+                  className="w-full mt-5 h-48 object-cover rounded-lg mb-5" // Added border radius and margin bottom
                 />
-                <div className="text-sm leading-6">
-                  <p className="font-semibold text-gray-900">
-                    <Link to={`/${post.author_username}`}>
-                      {post.author_username}
-                    </Link>
+              </Link>
+              <h3 className="text-lg font-semibold leading-snug line-clamp-2 mb-2">
+                <Link to={post.slug}>{post.title}</Link>
+              </h3>
+              <p className="text-sm text-gray-600 line-clamp-5 mb-4">
+                {post.excerpt}
+              </p>
+              <div className="mt-auto pt-2 flex items-center">
+                <img
+                  src={post.author_profile_image}
+                  alt=""
+                  className="h-10 w-10 rounded-full mr-4"
+                />
+                <div>
+                  <p className="text-sm font-semibold">
+                    {post.author_username}
                   </p>
-                  <p className="text-gray-600">{post.author_username}</p>
+                  <p className="text-xs text-gray-500">{post.profession}</p>
                 </div>
               </div>
             </article>
           ))}
         </div>
       </div>
+      <Pagination></Pagination>
+    </div>
+  );
+}
+
+function Pagination() {
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const pages = [1, 2, 3]; // This should be dynamically calculated based on data in a real app
+
+  const handlePageClick = (page) => {
+    setCurrentPage(page);
+    // You would also fetch new data here if needed
+  };
+
+  return (
+    <div className="flex justify-center mt-8">
+      <button
+        onClick={() => handlePageClick(currentPage - 1)}
+        disabled={currentPage === 1}
+        className="mx-1 px-4 py-2 rounded text-white bg-indigo-500 border border-indigo-500 hover:bg-indigo-600"
+      >
+        Prev
+      </button>
+      {pages.map((page) => (
+        <button
+          key={page}
+          onClick={() => handlePageClick(page)}
+          className={`mx-1 px-4 py-2 rounded ${
+            currentPage === page
+              ? "bg-indigo-500 text-white"
+              : "bg-white text-indigo-500 border border-indigo-500"
+          } hover:bg-indigo-600`}
+        >
+          {page}
+        </button>
+      ))}
+      <button
+        onClick={() => handlePageClick(currentPage + 1)}
+        disabled={currentPage === pages.length}
+        className="mx-1 px-4 py-2 rounded text-white bg-indigo-500 border border-indigo-500 hover:bg-indigo-600"
+      >
+        Next
+      </button>
     </div>
   );
 }

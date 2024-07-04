@@ -36,15 +36,15 @@ export default function App() {
           />
           {/*Features*/}
           <Route
-            path="/projects/project-features/*"
+            path="/projects/project-features/:slug/"
             element={<ProjectFeatures />}
           />
           <Route
-            path="/projects/surface-features/*"
+            path="/projects/surface-features/:slug/"
             element={<SurfaceFeatures />}
           />
           <Route
-            path="/projects/investment-features/*"
+            path="/projects/investment-features/:slug/"
             element={<InvestmentFeatures />}
           />
         </Route>
