@@ -49,28 +49,30 @@ class OfferDetailView(RetrieveAPIView):
     permission_classes = [AllowAny]
     parser_classes = [MultiPartParser, FormParser]
 
-    def get(self, request: Request, slug: str) -> Response:
+    def get(self, request, slug: str) -> Response:
+        response_data = {}
         
-         
         try:
-            surface_offer = SurfaceOffer.objects.get(slug=slug)
-            investment_offer = SurfaceOffer.objects.get(slug=slug)
-            project_offers = SurfaceOffer.objects.get(slug=slug)
+            surface_offer = SurfaceOffer.objects.filter(slug=slug).first()
+            investment_offer = InvestmentOffer.objects.filter(slug=slug).first()
+            project_offers = ProjectOffer.objects.filter(slug=slug).first()
 
             if surface_offer is not None:
-                surface_offer_serializer = SurfaceOfferSerializer(instance=surface_offer)
-                return Response(data=surface_offer_serializer.data, status=status.HTTP_200_OK)
+                serializer = SurfaceOfferSerializer(surface_offer)
+                response_data['surface_offer'] = serializer.data
             
             if investment_offer is not None:
-                investment_offer_serializer = InvestmentOfferSerializer(instance=investment_offer)
-                return Response(data=investment_offer_serializer.data, status=status.HTTP_200_OK)
-            
+                serializer = InvestmentOfferSerializer(investment_offer)
+                response_data['investment_offer'] = serializer.data
+
             if project_offers is not None:
-                project_offer_serializer = ProjectOfferSerializer(instance=project_offers)
-                return Response(data=project_offer_serializer.data, status=status.HTTP_200_OK)
-            
+                serializer = ProjectOfferSerializer(project_offers)
+                response_data['project_offers'] = serializer.data
+
+            if response_data:
+                return Response(response_data, status=status.HTTP_200_OK)
             else:
-                return Response({'message': 'Offer_type parameter is required.'}, status=status.HTTP_400_BAD_REQUEST)
-            
-        except (SurfaceOffer.DoesNotExist, InvestmentOffer.DoesNotExist, ProjectOffer.DoesNotExist):
                 return Response({'message': 'Offer not found.'}, status=status.HTTP_404_NOT_FOUND)
+
+        except Exception as e:
+            return Response({'message': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
