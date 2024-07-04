@@ -1,133 +1,152 @@
-const itemData = [
-  {
-    imageUrl:
-      "https://www.bayerncare.de/fileadmin/_processed_/3/0/csm_perlachstift-muenchen-960x640_3d5b78edf7.jpg",
-    title: "Project Neuperlach",
-    location: "Dust Studios",
-    size: "*** m2",
-    quantity: 2,
-    status: "Active",
-    statusColor: "emerald",
-    publisDate: "23rd March 2021",
-    href: "#",
-  },
-  {
-    imageUrl:
-      "https://ms.immowelt.org/8eadd9e3-d46b-44f3-a8e6-83bd2c75ac24/14bcc812-0d73-4f2d-9286-e9163b24788c/0x400.webp",
-    title: "Project Neuhausen",
-    location: "Diamond Dials",
-    size: "Regular",
-    quantity: 1,
-    status: "Completed",
-    statusColor: "indigo",
-    publisDate: "23rd March 2021",
-    href: "#",
-  },
-  {
-    imageUrl:
-      "https://wp-asset.groww.in/wp-content/uploads/2021/04/27191310/Investment.jpg",
-    title: "Investment Garching",
-    location: "Diamond Dials",
-    size: "Regular",
-    quantity: 1,
-    status: "Dispatched",
-    statusColor: "indigo",
-    publisDate: "23rd March 2021",
-    href: "#",
-  },
-  {
-    imageUrl:
-      "https://www.merkur.de/assets/images/34/675/34675138-um-den-volksfestplatz-im-buergerpark-links-zu-vergroessern-soll-fuer-die-geplante-jugend-flaeche-rechts-ein-anderer-platz-gefunden-werden-2rWji26Hou70.jpg",
-    title: "Surface Garching",
-    location: "Diamond Dials",
-    size: "Regular",
-    quantity: 1,
-    status: "Dispatched",
-    statusColor: "indigo",
-    publisDate: "23rd March 2021",
-    href: "projects/surface-features/",
-  },
-  {
-    imageUrl: "https://pagedone.io/asset/uploads/1701167621.png",
-    title: "Diamond Platinum Watch",
-    location: "Diamond Dials",
-    size: "Regular",
-    quantity: 1,
-    status: "Dispatched",
-    statusColor: "indigo",
-    publisDate: "23rd March 2021",
-    href: "#",
-  },
-];
+import { Link } from "react-router-dom";
+import AxiosInstance from "../axios/AxiosInstance";
+import { useState, useEffect, ReactNode } from "react";
 
-const ItemList = () => (
-  <section className="py-24 relative">
-    <div className="w-full max-w-7xl px-4 md:px-5 lg:px-6 mx-auto">
-      <div className="main-box border border-gray-200 rounded-xl pt-6 max-w-xl lg:max-w-full mx-auto">
-        {itemData.map((item) => (
-          <a href={item.href}>
-            <div className="flex flex-col lg:flex-row items-center py-6 border-b border-gray-200 gap-6 w-full">
-              <div className="ml-5 img-box w-full lg:max-w-[140px]">
-                <img
-                  src={item.imageUrl}
-                  alt={`${item.title} image`}
-                  className="aspect-square w-full rounded-lg "
-                />
-              </div>
-              <div className="flex flex-row items-center w-full ">
-                <div className="grid grid-cols-1 lg:grid-cols-2 w-full">
-                  <div className="flex items-center">
-                    <div>
-                      <h2 className="font-semibold text-xl leading-8 text-black mb-3">
-                        {item.title}
-                      </h2>
-                      <p className="font-normal text-lg leading-8 text-gray-500 mb-3">
-                        Location: {item.location}
-                      </p>
-                      <div className="flex items-center">
-                        <p className="font-medium text-base leading-7 text-black pr-4 mr-4 border-r border-gray-200">
-                          Area:{" "}
-                          <span className="text-gray-500">{item.size}</span>
+// Define the Post interface according to the actual data structure
+interface Post {
+  offer_description: ReactNode;
+  offer_excerpt: string;
+  offer_type: string;
+  id: number;
+  slug: string;
+  offer_name: string;
+  location?: string;
+  cover_image?: string;
+  surface_area?: string;
+  investment_amount?: string;
+  status: string;
+  start_date: string;
+}
+
+export function OfferList() {
+  const [offerData, setOfferData] = useState<Post[]>([]);
+
+  const GetOfferData = () => {
+    AxiosInstance.get(`api/offers/all/`)
+      .then((res) => {
+        if (res.data.results && Array.isArray(res.data.results)) {
+          setOfferData(res.data.results);
+          console.log(res.data.results);
+        }
+      })
+      .catch((error) => {
+        console.error("Failed to fetch offer data:", error);
+      });
+  };
+
+  useEffect(() => {
+    GetOfferData();
+  }, []);
+
+  const formatDate = (dateString: string | number | Date) => {
+    const date = new Date(dateString);
+    const monthNames = [
+      "JAN",
+      "FEB",
+      "MAR",
+      "APR",
+      "MAY",
+      "JUN",
+      "JUL",
+      "AUG",
+      "SEP",
+      "OCT",
+      "NOV",
+      "DEC",
+    ];
+    return `${
+      monthNames[date.getMonth()]
+    } ${date.getDate()}, ${date.getFullYear()}`;
+  };
+
+  const getOfferStyle = (offer_type: string) => {
+    switch (offer_type) {
+      case "Surface Offer":
+        return "bg-lime-100";
+      case "Investment Offer":
+        return "bg-sky-100";
+      case "Project Offer":
+        return "bg-yellow-100";
+      default:
+        return {};
+    }
+  };
+
+  return (
+    <section className="py-24 relative">
+      <div className="w-full max-w-7xl px-4 md:px-5 lg:px-6 mx-auto">
+        <div className="main-box border border-gray-200 rounded-xl pt-6 max-w-xl lg:max-w-full mx-auto">
+          {offerData.map((offer) => (
+            <Link to={offer.slug} key={offer.id}>
+              <div className="flex flex-col lg:flex-row items-center py-6 border-b border-gray-200 gap-6 w-full">
+                <div className="ml-5 img-box w-full lg:max-w-[180px]">
+                  <img
+                    src={`http://localhost:8000${offer.cover_image}`}
+                    alt={`${offer.offer_name} image`}
+                    className="aspect-square w-full rounded-lg"
+                  />
+                </div>
+                <div className="flex flex-row items-center w-full">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 w-full">
+                    <div className="flex items-center">
+                      <div>
+                        <h2 className="font-semibold text-xl leading-8 text-black mb-3">
+                          {offer.offer_name}
+                        </h2>
+                        <p className="font-normal text-lg leading-8 text-gray-500 mb-3">
+                          Location: {offer.location}
                         </p>
-                        <p className="font-medium text-base leading-7 text-black">
-                          Qty:{" "}
-                          <span className="text-gray-500">{item.quantity}</span>
-                        </p>
+                        <div className="flex items-center">
+                          <p className="font-medium text-base leading-7 text-black pr-4 mr-4 border-r border-gray-200">
+                            Area: {offer.surface_area || "-"} m<sup>2</sup>
+                          </p>
+                          <p className="font-medium text-base leading-7 text-black pr-4 mr-4 border-r border-gray-200">
+                            Budget: {offer.investment_amount || "-"} €
+                          </p>
+                          <p
+                            className={`font-medium text-base leading-7 rounded-full px-3 text-black ${getOfferStyle(
+                              offer.offer_type
+                            )}`}
+                          >
+                            {offer.offer_type}
+                          </p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="grid grid-cols-5">
-                    <div className="col-span-5 lg:col-span-2 flex items-center">
-                      <div className="flex gap-3 lg:block">
-                        <p className="font-medium text-sm leading-7 text-black">
-                          Status
-                        </p>
-                        <p
-                          className={`font-medium text-sm leading-6 py-0.5 px-3 rounded-full lg:mt-3 bg-${item.statusColor}-50 text-${item.statusColor}-600`}
-                        >
-                          {item.status}
-                        </p>
+                    <div className="grid grid-cols-5">
+                      <div className="col-span-5 lg:col-span-2 flex items-center">
+                        <div className="flex gap-3 lg:block">
+                          <p className="font-medium text-sm leading-7 text-black">
+                            Status
+                          </p>
+                          <p
+                            className={`font-medium text-sm leading-6 py-0.5 px-3 rounded-full lg:mt-3 bg-${offer.status.toLowerCase()}-50 text-${offer.status.toLowerCase()}-600`}
+                          >
+                            {offer.status}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="col-span-5 lg:col-span-2 flex items-center">
+                        <div className="flex gap-3 lg:block">
+                          <p className="font-medium text-sm whitespace-nowrap leading-6 text-black">
+                            Start Date
+                          </p>
+                          <p className="font-medium text-base whitespace-nowrap leading-7 lg:mt-3 text-emerald-500">
+                            {formatDate(offer.start_date)}
+                          </p>
+                        </div>
                       </div>
                     </div>
-                    <div className="col-span-5 lg:col-span-2 flex items-center">
-                      <div className="flex gap-3 lg:block">
-                        <p className="font-medium text-sm whitespace-nowrap leading-6 text-black">
-                          Publis Date
-                        </p>
-                        <p className="font-medium text-base whitespace-nowrap leading-7 lg:mt-3 text-emerald-500">
-                          {item.publisDate}
-                        </p>
-                      </div>
-                    </div>
+                    <p className="mt-5 line-clamp-3 text-base leading-6 text-gray-600">
+                      {offer.offer_description}
+                    </p>
                   </div>
                 </div>
               </div>
-            </div>
-          </a>
-        ))}
+            </Link>
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
-);
-
-export default ItemList;
+    </section>
+  );
+}

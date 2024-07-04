@@ -53,7 +53,7 @@ def delete_cover_image(sender, instance, **kwargs):
 
 class SurfaceOffer(Offer):
     class Meta:
-        ordering = ('-created_at',)
+        ordering = ('-start_date',)
 
     surface_type = models.CharField(max_length=100)
     surface_area = models.DecimalField(max_digits=9, decimal_places=2)
@@ -65,7 +65,7 @@ class SurfaceOffer(Offer):
 class InvestmentOffer(Offer):
 
     class Meta:
-        ordering = ('-created_at',)
+        ordering = ('-start_date',)
 
     investment_amount = models.DecimalField(max_digits=12, decimal_places=2)
     file_upload = models.FileField(upload_to ='uploads/investment_offers', default= None) 
@@ -76,10 +76,10 @@ class InvestmentOffer(Offer):
 class ProjectOffer(Offer):
 
     class Meta:
-        ordering = ('-created_at',)
+        ordering = ('-start_date',)
 
-    budget_goal = models.DecimalField(max_digits=12, decimal_places=2)
-    surface_area_goal = models.DecimalField(max_digits=12, decimal_places=2)
+    investment_amount = models.DecimalField(max_digits=12, decimal_places=2)
+    surface_area = models.DecimalField(max_digits=12, decimal_places=2)
     max_investment_limit = models.DecimalField(max_digits=12, decimal_places=2)
     file_upload = models.FileField(upload_to ='uploads/project_offers', default= None) 
 
