@@ -11,7 +11,6 @@ export function PasswordReset() {
   const { register, handleSubmit } = useForm();
 
   const navigate = useNavigate();
-  const location = useLocation();
   const { token } = useParams();
 
   const [showMessage, setShowMessage] = useState(false);
@@ -20,7 +19,7 @@ export function PasswordReset() {
     AxiosInstance.post(`api/password_reset/confirm/`, {
       password: data.password,
       token: token,
-    }).then((response) => {
+    }).then(() => {
       setShowMessage(true);
       setTimeout(() => {
         navigate("/login");
