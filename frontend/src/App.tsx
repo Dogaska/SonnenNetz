@@ -44,7 +44,7 @@ export default function App() {
             element={<SurfaceFeatures />}
           />
           <Route
-            path="/projects/investment-features/*"
+            path="/projects/investment-features/:slug"
             element={<InvestmentFeatures />}
           />
         </Route>

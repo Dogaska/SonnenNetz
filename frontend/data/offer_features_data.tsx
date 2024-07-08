@@ -1,12 +1,12 @@
 const project_features_data = [
   {
     title: "Project Description",
-    text: "This is a local project in Neuperlach region driven by  ...",
+    text: "Embark on a transformative journey with our Neuperlach Green Energy Initiative, a groundbreaking opportunity for progressive investors eager to drive and benefit from sustainable energy practices. This project focuses on installing a comprehensive solar panel system within Neuperlach to supply renewable energy to the community, enhancing local energy independence and sustainability.",
   },
-  { title: "Location", text: "Neuperlach, Munich, Germany" },
+  { title: "Location", text: "81735, Neuperlach" },
   {
     title: "Budget Goal",
-    text: "150 000 Euros",
+    text: "75000 €",
   },
   {
     title: "Maximum Investment Limit",
@@ -14,14 +14,14 @@ const project_features_data = [
   },
   {
     title: "Surface Area Goal",
-    text: "3600 m2",
+    text: "10000 m2",
   },
   {
     title: "Installment Goal",
-    text: "1000 kW",
+    text: "1.544 MW",
   },
-  { title: "Start Date", text: "01.01.2024" },
-  { title: "End Date", text: "01.01.2026" },
+  { title: "Start Date", text: "04.07.2024" },
+  { title: "End Date", text: "31.10.2024" },
   {
     title: "Coummunity Type",
     text: "Local energy community",
@@ -44,23 +44,18 @@ const project_features_download_data = [
 const project_features_image_data = [
   {
     id: 1,
-    url: "https://tailwindui.com/img/ecommerce-images/product-feature-03-detail-01.jpg",
+    url: "../../src/assets/images/neuperlach.png",
     text: "Description of image 1",
   },
   {
     id: 2,
-    url: "https://tailwindui.com/img/ecommerce-images/product-feature-03-detail-02.jpg",
+    url: "../../src/assets/images/neuperlach2.png",
     alt_text: "Description of image 2",
   },
   {
     id: 3,
-    url: "https://tailwindui.com/img/ecommerce-images/product-feature-03-detail-03.jpg",
+    url: "../../src/assets/images/neuperlach3.png",
     alt_text: "Description of image 3",
-  },
-  {
-    id: 4,
-    url: "https://tailwindui.com/img/ecommerce-images/product-feature-03-detail-04.jpg",
-    alt_text: "Description of image 4",
   },
 ];
 

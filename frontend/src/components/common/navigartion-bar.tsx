@@ -14,8 +14,9 @@ import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const navigation = [
   { name: "Home", href: "/home", current: false },
-  { name: "Projects", href: "/projects", current: false },
-  { name: "Resources", href: "/resources", current: false },
+  { name: "Offers", href: "/projects", current: false },
+  { name: "Blog", href: "/resources", current: false },
+  { name: "Chat", href: "/chat", current: false },
   { name: "About Us", href: "/about", current: false },
   { name: "Login", href: "/login", current: false },
   { name: "Sign Up", href: "/signup", current: false },
@@ -70,9 +71,10 @@ export function NavigationBar() {
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex flex-shrink-0 items-center">
                   <img
-                    className="h-8 w-auto"
+                    className="block h-12 w-auto lg:h-16 hover:shadow-lg transition-shadow duration-300"
                     src="src/assets/images/Logo_sonnennetz.svg"
                     alt="SonnenNetz"
+                    style={{ filter: "drop-shadow(2px 4px 6px black)" }}
                   />
                 </div>
                 <div className="hidden sm:flex sm:ml-6 sm:flex-1 sm:items-center sm:justify-between">

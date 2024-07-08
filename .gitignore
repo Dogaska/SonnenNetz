@@ -23,6 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 *.pyc
+*.sqlite3
+__pycache__/
 
 # environment files
 backend/venv/

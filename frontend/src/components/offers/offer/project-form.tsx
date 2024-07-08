@@ -8,7 +8,7 @@ export function ProjectForm() {
   const { register, handleSubmit } = useForm();
   return (
     <div className="container mx-auto max-w-4xl px-4  mt-20">
-      <FormHeader>Create a new investment offer</FormHeader>
+      <FormHeader>Create a new offer</FormHeader>
       <form action="">
         <div className="grid md:grid-cols-2 grid-cols-1 gap-x-8">
           <div>
