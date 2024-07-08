@@ -325,3 +325,7 @@ export function BlogTemplate() {
     </>
   );
 }
+
+function jwt_decode(token: string): any {
+  throw new Error("Function not implemented.");
+}

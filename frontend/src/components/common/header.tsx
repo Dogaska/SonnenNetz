@@ -24,7 +24,7 @@ export function HeaderProjectFeatures() {
   return (
     <header className="bg-white">
       <h2 className="text-4xl font-bold tracking-tight text-gray-900  flex justify-center items-center mt-20">
-        Project Offer Details
+        Neuperlach Project Offer
       </h2>
     </header>
   );

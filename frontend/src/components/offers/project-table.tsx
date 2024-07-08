@@ -170,13 +170,15 @@ export function ProjectTable() {
                 Location
               </button>
             </div>
-            <button
-              type="submit"
-              className="text-white bg-indigo-600 hover:bg-indigo-600 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800 flex items-center justify-center"
-            >
-              Create New
-              <PlusCircleIcon className="h-5 w-5 ml-2" />
-            </button>
+            <Link to={"project-offer/"}>
+              <button
+                type="submit"
+                className="text-white bg-indigo-600 hover:bg-indigo-600 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800 flex items-center justify-center"
+              >
+                Create New
+                <PlusCircleIcon className="h-5 w-5 ml-2" />
+              </button>
+            </Link>
           </div>
 
           {/* Mobile Filters Modal */}
@@ -203,7 +205,7 @@ export function ProjectTable() {
               <div className="w-full max-w-7xl px-4 md:px-5 lg:px-6 mx-auto">
                 <div className="main-box border border-gray-200 rounded-xl pt-6 max-w-xl lg:max-w-full mx-auto">
                   {offerData.map((offer) => (
-                    <Link to={offer.slug} key={offer.id}>
+                    <Link to={"project-features/"} key={offer.id}>
                       <div className="flex flex-col lg:flex-row items-center py-6 border-b border-gray-200 gap-6 w-full">
                         <div className="ml-5 img-box w-full lg:max-w-[180px]">
                           <img

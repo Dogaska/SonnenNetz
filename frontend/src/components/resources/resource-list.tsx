@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, SetStateAction } from "react";
 import { Link } from "react-router-dom";
 import AxiosInstance from "../axios/AxiosInstance";
 
@@ -23,6 +23,7 @@ export function ResourceList() {
     AxiosInstance.get("api/resources/all/")
       .then((res) => {
         if (res.data.results && Array.isArray(res.data.results.result)) {
+          setBlogData(res.data.results.result);
           setBlogData(res.data.results.result);
         }
       })
@@ -62,6 +63,7 @@ export function ResourceList() {
         return "bg-rose-100";
       default:
         return "bg-gray-100";
+        return "bg-gray-100";
     }
   };
 
@@ -69,7 +71,7 @@ export function ResourceList() {
 
   const pages = [1, 2, 3]; // This should be dynamically calculated based on data in a real app
 
-  const handlePageClick = (page) => {
+  const handlePageClick = (page: SetStateAction<number>) => {
     setCurrentPage(page);
     // You would also fetch new data here if needed
   };
@@ -79,11 +81,11 @@ export function ResourceList() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="text-center">
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Blogs
+            Blogs Blogs
           </h2>
           <p className="mt-2 text-lg leading-8 text-gray-600">
             We've compiled resources to support your community energy project at
-            any stage.
+            any stage. any stage.
           </p>
         </div>
         <hr className="my-8 border-gray-300" />
@@ -148,50 +150,6 @@ export function ResourceList() {
           ))}
         </div>
       </div>
-      <Pagination></Pagination>
-    </div>
-  );
-}
-
-function Pagination() {
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const pages = [1, 2, 3]; // This should be dynamically calculated based on data in a real app
-
-  const handlePageClick = (page) => {
-    setCurrentPage(page);
-    // You would also fetch new data here if needed
-  };
-
-  return (
-    <div className="flex justify-center mt-8">
-      <button
-        onClick={() => handlePageClick(currentPage - 1)}
-        disabled={currentPage === 1}
-        className="mx-1 px-4 py-2 rounded text-white bg-indigo-500 border border-indigo-500 hover:bg-indigo-600"
-      >
-        Prev
-      </button>
-      {pages.map((page) => (
-        <button
-          key={page}
-          onClick={() => handlePageClick(page)}
-          className={`mx-1 px-4 py-2 rounded ${
-            currentPage === page
-              ? "bg-indigo-500 text-white"
-              : "bg-white text-indigo-500 border border-indigo-500"
-          } hover:bg-indigo-600`}
-        >
-          {page}
-        </button>
-      ))}
-      <button
-        onClick={() => handlePageClick(currentPage + 1)}
-        disabled={currentPage === pages.length}
-        className="mx-1 px-4 py-2 rounded text-white bg-indigo-500 border border-indigo-500 hover:bg-indigo-600"
-      >
-        Next
-      </button>
     </div>
   );
 }

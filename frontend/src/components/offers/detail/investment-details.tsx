@@ -3,12 +3,6 @@ import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import AxiosInstance from "../../axios/AxiosInstance";
 
-import {
-  offerData,
-  investment_features_image_data,
-  investment_features_download_data,
-} from "../../../../data/offer_features_data";
-
 function InvestmentOfferDetails() {
   const { slug } = useParams();
 
@@ -20,7 +14,6 @@ function InvestmentOfferDetails() {
       .then((res) => {
         if (res.data) {
           setOfferData([res.data]);
-          console.log(res.data);
         }
       })
       .catch((error) => {
@@ -34,56 +27,46 @@ function InvestmentOfferDetails() {
 
   return (
     <div className="bg-white">
-      <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
-        {/* Full Width Description */}
-        <div className="mb-16">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            {
-              offerData.find(
-                (feature) => feature.offer_type === "Surface Offer"
-              )?.offer_name
-            }
-          </h2>
-          <p className="mt-4 text-gray-500">
-            {
-              offerData.find(
-                (feature) => feature.title === "Investment Description"
-              )?.text
-            }
-          </p>
-        </div>
+      {offerData.map((offer) => (
+        <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
+          {/* Full Width Description */}
+          <div className="mb-16">
+            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+              {offer.offer_name}
+            </h2>
+            <p className="mt-4 text-gray-500">{offer.offer_description}</p>
+          </div>
 
-        {/* Grid Layout for Details and Images */}
-        <div className="grid lg:grid-cols-2 gap-x-8 gap-y-16">
-          {/* Left Column for Text - Other details */}
-          <div>
-            <dl className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 sm:gap-y-16 lg:gap-x-8">
-              {offerData.map(
-                (feature) =>
-                  feature.title !== "Investment Description" && (
-                    <div
-                      key={feature.title}
-                      className="border-t border-gray-200 pt-4"
+          {/* Grid Layout for Details and Images */}
+          <div className="grid lg:grid-cols-2 gap-x-8 gap-y-16">
+            {/* Left Column for Text - Other details */}
+            <div>
+              <dl className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 sm:gap-y-16 lg:gap-x-8">
+                {offerData.map(
+                  (feature) =>
+                    feature.title !== "Investment Description" && (
+                      <div
+                        key={feature.title}
+                        className="border-t border-gray-200 pt-4"
+                      >
+                        <dt className="font-medium text-gray-900">
+                          {feature.title}
+                        </dt>
+                        <dd className="mt-2 text-sm text-gray-500">
+                          {feature.text}
+                        </dd>
+                      </div>
+                    )
+                )}
+                {/* Downloader details*/}
+                <div className="lg:col-span-2">
+                  <dt className="font-medium text-gray-900">Attachments</dt>
+                  <dd className="mt-2 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                    <ul
+                      role="list"
+                      className="divide-y divide-gray-100 rounded-md border border-gray-200"
                     >
-                      <dt className="font-medium text-gray-900">
-                        {feature.title}
-                      </dt>
-                      <dd className="mt-2 text-sm text-gray-500">
-                        {feature.text}
-                      </dd>
-                    </div>
-                  )
-              )}
-              {/* Downloader details*/}
-              <div className="lg:col-span-2">
-                <dt className="font-medium text-gray-900">Attachments</dt>
-                <dd className="mt-2 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                  <ul
-                    role="list"
-                    className="divide-y divide-gray-100 rounded-md border border-gray-200"
-                  >
-                    {investment_features_download_data.map(
-                      (document, index) => (
+                      {offerData.map((document, index) => (
                         <li className="flex items-center justify-between py-4 pl-4 pr-5 text-sm leading-6">
                           <div className="flex w-0 flex-1 items-center">
                             <PaperClipIcon
@@ -111,43 +94,36 @@ function InvestmentOfferDetails() {
                             </a>
                           </div>
                         </li>
-                      )
-                    )}
-                  </ul>
-                </dd>
-              </div>
-            </dl>
+                      ))}
+                    </ul>
+                  </dd>
+                </div>
+              </dl>
+            </div>
+
+            {/* Right Column for Images - Closely spaced */}
+            <div className="grid grid-cols-2 grid-rows-2 gap-2 sm:gap-4">
+              <img key={offer.cover_image} className="rounded-lg bg-gray-100" />
+            </div>
           </div>
 
-          {/* Right Column for Images - Closely spaced */}
-          <div className="grid grid-cols-2 grid-rows-2 gap-2 sm:gap-4">
-            {investment_features_image_data.map((image) => (
-              <img
-                key={image.id}
-                src={image.url}
-                alt={image.text}
-                className="rounded-lg bg-gray-100"
-              />
-            ))}
+          {/* Apply Button */}
+          <div className="mt-6 flex justify-start gap-x-6 w-full h-12 text-base font-semibold leading-6">
+            <button
+              type="submit"
+              className="rounded-md bg-indigo-600 px-10 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              Apply to the investment offer
+            </button>
+            <button
+              type="submit"
+              className="rounded-md bg-indigo-600 px-10 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              Contact with investor
+            </button>
           </div>
         </div>
-
-        {/* Apply Button */}
-        <div className="mt-6 flex justify-start gap-x-6 w-full h-12 text-base font-semibold leading-6">
-          <button
-            type="submit"
-            className="rounded-md bg-indigo-600 px-10 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            Apply to the investment offer
-          </button>
-          <button
-            type="submit"
-            className="rounded-md bg-indigo-600 px-10 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            Contact with investor
-          </button>
-        </div>
-      </div>
+      ))}
     </div>
   );
 }
