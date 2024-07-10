@@ -1,19 +1,9 @@
-import {
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuItems,
-  Transition,
-} from "@headlessui/react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { ChevronDownIcon, PlusCircleIcon } from "@heroicons/react/20/solid";
-
 import { HeaderOffers } from "../common/header";
-import { OfferList } from "./offer-list";
-
 import { Link } from "react-router-dom";
 import AxiosInstance from "../axios/AxiosInstance";
-import { SetStateAction, useState, useEffect, ReactNode } from "react";
+import { useState, useEffect, ReactNode } from "react";
 
 // Define the Post interface according to the actual data structure
 interface Post {
@@ -29,29 +19,20 @@ interface Post {
   investment_amount?: string;
   status: string;
   start_date: string;
-}
-
-const sortOptions = [
-  { name: "Most Popular", href: "#", current: true },
-  { name: "Best Rating", href: "#", current: false },
-  { name: "Newest", href: "#", current: false },
-  { name: "Price: Low to High", href: "#", current: false },
-  { name: "Price: High to Low", href: "#", current: false },
-];
-
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
+  progress?: number;
 }
 
 export function ProjectTable() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
-  const [selectedSort, setSelectedSort] = useState(sortOptions[-1]);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isFilterDropdownOpen, setIsFilterDropdownOpen] = useState(false);
 
-  const handleSortChange = (
-    option: SetStateAction<{ name: string; href: string; current: boolean }>
-  ) => {
-    setSelectedSort(option);
-    // Implement sorting logic here
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const toggleFilterDropdown = () => {
+    setIsFilterDropdownOpen(!isFilterDropdownOpen);
   };
 
   const [offerData, setOfferData] = useState<Post[]>([]);
@@ -137,48 +118,130 @@ export function ProjectTable() {
               </div>
             </form>
           </div>
-          <div className="flex justify-between items-center">
-            <div className="flex items-center">
+          <div className="flex justify-between items-center mt-4">
+            <div className="relative">
               <button
-                type="submit"
-                className="text-indigo-600 font-bold mt-2 mr-2 bg-white hover:bg-indigo-200 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800"
+                type="button"
+                onClick={toggleFilterDropdown}
+                className="text-indigo-600 font-bold mt-2 mr-2 bg-white hover:bg-indigo-200 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800 flex items-center"
               >
-                Filters:
+                Filters
+                <ChevronDownIcon className="w-5 h-5 ml-2" />
               </button>
-              <button
-                type="submit"
-                className="text-white bg-indigo-500 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800 mr-2"
-              >
-                Investment
-              </button>
-              <button
-                type="submit"
-                className="text-white bg-indigo-500 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800 mr-2"
-              >
-                Surface
-              </button>
-              <button
-                type="submit"
-                className="text-white bg-indigo-500 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800 mr-2"
-              >
-                Project
-              </button>
-              <button
-                type="submit"
-                className="text-white bg-indigo-200 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800"
-              >
-                Location
-              </button>
+              {isFilterDropdownOpen && (
+                <div
+                  id="dropdownDefaultCheckbox"
+                  className="absolute right-0 z-10 mt-2 bg-white divide-y divide-gray-100 rounded-lg shadow w-48 dark:bg-gray-700 dark:divide-gray-600"
+                >
+                  <ul
+                    className="p-3 space-y-3 text-sm text-gray-700 dark:text-gray-200"
+                    aria-labelledby="dropdownCheckboxButton"
+                  >
+                    <li>
+                      <div className="flex items-center">
+                        <input
+                          id="checkbox-item-1"
+                          type="checkbox"
+                          className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                        />
+                        <label
+                          htmlFor="checkbox-item-1"
+                          className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                        >
+                          Investment Offer
+                        </label>
+                      </div>
+                    </li>
+                    <li>
+                      <div className="flex items-center">
+                        <input
+                          id="checkbox-item-2"
+                          type="checkbox"
+                          className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                        />
+                        <label
+                          htmlFor="checkbox-item-2"
+                          className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                        >
+                          Surface Offer
+                        </label>
+                      </div>
+                    </li>
+                    <li>
+                      <div className="flex items-center">
+                        <input
+                          id="checkbox-item-3"
+                          type="checkbox"
+                          className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                        />
+                        <label
+                          htmlFor="checkbox-item-3"
+                          className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                        >
+                          Maximum Budget Limit
+                        </label>
+                      </div>
+                    </li>
+                    <li>
+                      <div className="flex items-center">
+                        <input
+                          id="checkbox-item-4"
+                          type="checkbox"
+                          className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                        />
+                        <label
+                          htmlFor="checkbox-item-4"
+                          className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                        >
+                          Surface Area
+                        </label>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              )}
             </div>
-            <Link to={"project-offer/"}>
+
+            <div className="relative">
               <button
-                type="submit"
+                type="button"
+                onClick={toggleDropdown}
                 className="text-white bg-indigo-600 hover:bg-indigo-600 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800 flex items-center justify-center"
               >
                 Create New
                 <PlusCircleIcon className="h-5 w-5 ml-2" />
+                <ChevronDownIcon className="w-5 h-5 ml-2" />
               </button>
-            </Link>
+
+              {isDropdownOpen && (
+                <div
+                  id="dropdown"
+                  className="absolute right-0 z-10 mt-2 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
+                >
+                  <ul
+                    className="py-2 text-sm text-gray-700 dark:text-gray-200"
+                    aria-labelledby="dropdownDefaultButton"
+                  >
+                    <li>
+                      <a
+                        href="/projects/investment-offer"
+                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                      >
+                        Investment Offer
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="/projects/-offer"
+                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                      >
+                        Surface Offer
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Mobile Filters Modal */}
@@ -280,16 +343,18 @@ export function ProjectTable() {
                             <p className="mt-5 line-clamp-3 text-base leading-6 text-gray-600">
                               {offer.offer_description}
                             </p>
-                            <div className="relative">
-                              <div className="w-64 bg-gray-200 rounded-full dark:bg-gray-700 mt-2">
-                                <div
-                                  className="bg-blue-500 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
-                                  style={{ width: `${offer.progress}%` }}
-                                >
-                                  {offer.progress}%
+                            {offer.progress !== undefined && (
+                              <div className="relative">
+                                <div className="w-64 bg-gray-200 rounded-full dark:bg-gray-700 mt-2">
+                                  <div
+                                    className="bg-blue-500 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
+                                    style={{ width: `${offer.progress}%` }}
+                                  >
+                                    {offer.progress}%
+                                  </div>
                                 </div>
                               </div>
-                            </div>
+                            )}
                           </div>
                         </div>
                       </div>
@@ -300,17 +365,18 @@ export function ProjectTable() {
             </section>
           </div>
         </main>
-        <Pagination></Pagination>
+        <Pagination />
       </div>
     </div>
   );
 }
+
 function Pagination() {
   const [currentPage, setCurrentPage] = useState(1);
 
   const pages = [1, 2, 3]; // This should be dynamically calculated based on data in a real app
 
-  const handlePageClick = (page) => {
+  const handlePageClick = (page: number) => {
     setCurrentPage(page);
     // You would also fetch new data here if needed
   };
