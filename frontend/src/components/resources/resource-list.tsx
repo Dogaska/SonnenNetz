@@ -81,11 +81,11 @@ export function ResourceList() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="text-center">
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Blogs Blogs
+            Blogs{" "}
           </h2>
           <p className="mt-2 text-lg leading-8 text-gray-600">
             We've compiled resources to support your community energy project at
-            any stage. any stage.
+            any stage.
           </p>
         </div>
         <hr className="my-8 border-gray-300" />

@@ -13,7 +13,7 @@ export function InvestmentForm() {
         <div className="grid md:grid-cols-2 grid-cols-1 gap-x-8">
           <div>
             <FormLabel htmlFor="first_name" isRequired={true}>
-              Project Name
+              Investment Name
             </FormLabel>
             <div className="mt-2">
               <InputBox
@@ -29,7 +29,7 @@ export function InvestmentForm() {
           </div>
           <div>
             <FormLabel htmlFor="last_name" isRequired={true}>
-              Project Owner
+              Investor
             </FormLabel>
             <div className="mt-2">
               <InputBox
@@ -45,7 +45,7 @@ export function InvestmentForm() {
           </div>
           <div className="col-span-full">
             <FormLabel htmlFor="description" isRequired={true}>
-              Project Description
+              Investment Description
             </FormLabel>
             <TextArea
               id="description"
