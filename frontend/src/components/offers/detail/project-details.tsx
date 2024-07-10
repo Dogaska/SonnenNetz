@@ -5,6 +5,7 @@ import {
   project_features_image_data,
   project_features_download_data,
 } from "../../../../data/offer_features_data";
+import { Link } from "react-router-dom";
 
 function ProjectOfferDetails() {
   return (
@@ -93,13 +94,13 @@ function ProjectOfferDetails() {
           </div>
 
           {/* Right Column for Images - Closely spaced */}
-          <div className="grid grid-cols-2 grid-rows-2 gap-2 sm:gap-4">
+          <div className="grid grid-cols-2 grid-rows-2 gap-2 sm:gap-4 md:gap-6 lg:gap-8">
             {project_features_image_data.map((image) => (
               <img
                 key={image.id}
                 src={image.url}
                 alt={image.text}
-                className="rounded-lg bg-gray-100"
+                className="rounded-lg bg-gray-100 w-64 h-48"
               />
             ))}
           </div>
@@ -107,12 +108,14 @@ function ProjectOfferDetails() {
 
         {/* Apply Button */}
         <div className="mt-6 flex justify-start gap-x-6 w-full h-12 text-base font-semibold leading-6">
-          <button
-            type="submit"
-            className="rounded-md bg-indigo-600 px-10 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            Apply to the project
-          </button>
+          <Link to="projects/investment-offer">
+            <button
+              type="submit"
+              className="rounded-md bg-indigo-600 px-10 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              Apply to the project
+            </button>
+          </Link>
           <button
             type="submit"
             className="rounded-md bg-indigo-600 px-10 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"

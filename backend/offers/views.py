@@ -23,7 +23,7 @@ class OfferListView(APIView):
         project_offers = ProjectOffer.objects.all()
 
         # Combine querysets into a list
-        all_offers = list(surface_offers) + list(investment_offers) + list(project_offers)
+        all_offers = list(surface_offers) + list(investment_offers) #+ list(project_offers)
 
         # Use the custom paginator to paginate the combined offers
         paginator = CustomPageNumberPagination()
@@ -38,8 +38,8 @@ class OfferListView(APIView):
                 serializer = SurfaceOfferSerializer(item)
             elif isinstance(item, InvestmentOffer):
                 serializer = InvestmentOfferSerializer(item)
-            elif isinstance(item, ProjectOffer):
-                serializer = ProjectOfferSerializer(item)
+            #elif isinstance(item, ProjectOffer):
+            #    serializer = ProjectOfferSerializer(item)
             serialized_results.append(serializer.data)
 
         return paginator.get_paginated_response(serialized_results)
@@ -55,7 +55,7 @@ class OfferDetailView(RetrieveAPIView):
         try:
             surface_offer = SurfaceOffer.objects.filter(slug=slug).first()
             investment_offer = InvestmentOffer.objects.filter(slug=slug).first()
-            project_offers = ProjectOffer.objects.filter(slug=slug).first()
+            #project_offers = ProjectOffer.objects.filter(slug=slug).first()
 
             if surface_offer is not None:
                 serializer = SurfaceOfferSerializer(surface_offer)
@@ -65,9 +65,9 @@ class OfferDetailView(RetrieveAPIView):
                 serializer = InvestmentOfferSerializer(investment_offer)
                 response_data['investment_offer'] = serializer.data
 
-            if project_offers is not None:
-                serializer = ProjectOfferSerializer(project_offers)
-                response_data['project_offers'] = serializer.data
+            #if project_offers is not None:
+            #    serializer = ProjectOfferSerializer(project_offers)
+            #    response_data['project_offers'] = serializer.data
 
             if response_data:
                 return Response(response_data, status=status.HTTP_200_OK)

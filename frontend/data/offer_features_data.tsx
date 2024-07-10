@@ -3,18 +3,22 @@ const project_features_data = [
     title: "Project Description",
     text: "Embark on a transformative journey with our Neuperlach Green Energy Initiative, a groundbreaking opportunity for progressive investors eager to drive and benefit from sustainable energy practices. This project focuses on installing a comprehensive solar panel system within Neuperlach to supply renewable energy to the community, enhancing local energy independence and sustainability.",
   },
+  {
+    title: "Project Owner",
+    text: "Maria Wagner",
+  },
   { title: "Location", text: "81735, Neuperlach" },
   {
     title: "Budget Goal",
-    text: "75000 €",
+    text: "100.000 €",
   },
   {
     title: "Maximum Investment Limit",
-    text: "1000 Euros",
+    text: "10.000 Euros",
   },
   {
     title: "Surface Area Goal",
-    text: "10000 m2",
+    text: "10.000 m2",
   },
   {
     title: "Installment Goal",
@@ -25,6 +29,14 @@ const project_features_data = [
   {
     title: "Coummunity Type",
     text: "Local energy community",
+  },
+  {
+    title: "Budget Progress",
+    text: "90.000 € / 100.000 €",
+  },
+  {
+    title: "Surface Area Progress",
+    text: "10.000 / 10.000",
   },
 ];
 
@@ -48,11 +60,6 @@ const project_features_image_data = [
     text: "Description of image 1",
   },
   {
-    id: 2,
-    url: "../../src/assets/images/neuperlach2.png",
-    alt_text: "Description of image 2",
-  },
-  {
     id: 3,
     url: "../../src/assets/images/neuperlach3.png",
     alt_text: "Description of image 3",
@@ -73,7 +80,7 @@ const surface_features_data = [
   { title: "Start Date", text: "01.01.2024" },
   { title: "End Date", text: "01.01.2026" },
   {
-    title: "Coummunity Type",
+    title: "Community Type",
     text: "Local energy community",
   },
 ];

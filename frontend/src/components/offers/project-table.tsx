@@ -205,7 +205,18 @@ export function ProjectTable() {
               <div className="w-full max-w-7xl px-4 md:px-5 lg:px-6 mx-auto">
                 <div className="main-box border border-gray-200 rounded-xl pt-6 max-w-xl lg:max-w-full mx-auto">
                   {offerData.map((offer) => (
-                    <Link to={"project-features/"} key={offer.id}>
+                    <Link
+                      to={
+                        offer.offer_type === "Surface Offer"
+                          ? `/projects/surface-details/${offer.slug}`
+                          : offer.offer_type === "Investment Offer"
+                          ? `/projects/investment-details/${offer.slug}`
+                          : offer.offer_type === "Project Offer"
+                          ? `/projects/project-details/${offer.slug}`
+                          : `/offer/${offer.slug}`
+                      }
+                      key={offer.id}
+                    >
                       <div className="flex flex-col lg:flex-row items-center py-6 border-b border-gray-200 gap-6 w-full">
                         <div className="ml-5 img-box w-full lg:max-w-[180px]">
                           <img
@@ -269,6 +280,16 @@ export function ProjectTable() {
                             <p className="mt-5 line-clamp-3 text-base leading-6 text-gray-600">
                               {offer.offer_description}
                             </p>
+                            <div className="relative">
+                              <div className="w-64 bg-gray-200 rounded-full dark:bg-gray-700 mt-2">
+                                <div
+                                  className="bg-blue-500 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
+                                  style={{ width: `${offer.progress}%` }}
+                                >
+                                  {offer.progress}%
+                                </div>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>

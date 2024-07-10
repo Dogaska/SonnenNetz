@@ -26,6 +26,15 @@ export default function App() {
         <Route path="/resources" element={<Resources />} />
         <Route path="/resources/:slug" element={<BlogArticle />} />
         <Route path="/projects" element={<Projects />} />
+        <Route
+          path="/projects/surface-details/:slug/"
+          element={<SurfaceFeatures />}
+        />
+        <Route
+          path="/projects/investment-details/:slug"
+          element={<InvestmentFeatures />}
+        />
+
         {/*Offers*/}
         <Route element={<ProtectedRoute />}>
           <Route path="/projects/project-offer/*" element={<ProjectOffer />} />
@@ -35,18 +44,6 @@ export default function App() {
             element={<InvestmentOffer />}
           />
           {/*Features*/}
-          <Route
-            path="/projects/project-features/:slug/"
-            element={<ProjectFeatures />}
-          />
-          <Route
-            path="/projects/surface-features/:slug/"
-            element={<SurfaceFeatures />}
-          />
-          <Route
-            path="/projects/investment-features/:slug"
-            element={<InvestmentFeatures />}
-          />
         </Route>
         <Route path="/about" element={<About />} />
         <Route path="/signup" element={<Signup />} />

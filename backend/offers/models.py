@@ -22,6 +22,7 @@ class Offer(models.Model):
         User, on_delete=models.CASCADE, related_name='%(class)s_owner')
     offer_name = models.CharField(max_length=255)
     offer_description = models.TextField()
+    motivation = models.TextField()
     offer_excerpt = models.CharField(max_length=150, null=True, blank=True)
     offer_type = models.CharField(
         max_length=20, choices=OfferCategory.choices, blank=False, null=False)
@@ -57,7 +58,10 @@ class SurfaceOffer(Offer):
 
     surface_type = models.CharField(max_length=100)
     surface_area = models.DecimalField(max_digits=9, decimal_places=2)
-    file_upload = models.FileField(upload_to ='uploads/surface_offers', default= None) 
+    file_upload = models.FileField(upload_to ='uploads/surface_offers', default= None)
+    max_investment_limit = models.DecimalField(max_digits=12, decimal_places=2)
+    investment_amount = models.DecimalField(max_digits=12, decimal_places=2)
+
 
     def __str__(self) -> str:
         return f'{self.offer_name}-{self.created_by}'
@@ -68,7 +72,7 @@ class InvestmentOffer(Offer):
         ordering = ('-start_date',)
 
     investment_amount = models.DecimalField(max_digits=12, decimal_places=2)
-    file_upload = models.FileField(upload_to ='uploads/investment_offers', default= None) 
+    file_upload = models.FileField(upload_to ='uploads/investment_offers', default= None)
 
     def __str__(self) -> str:
         return f'{self.offer_name}-{self.created_by}'
