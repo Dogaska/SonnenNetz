@@ -223,20 +223,20 @@ export function ProjectTable() {
                     aria-labelledby="dropdownDefaultButton"
                   >
                     <li>
-                      <a
-                        href="/projects/investment-offer"
+                      <Link
+                        to="/projects/investment-offer"
                         className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                       >
                         Investment Offer
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a
-                        href="/projects/-offer"
+                      <Link
+                        to="/projects/surface-offer"
                         className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                       >
                         Surface Offer
-                      </a>
+                      </Link>
                     </li>
                   </ul>
                 </div>
