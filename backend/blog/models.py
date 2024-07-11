@@ -7,7 +7,7 @@ from django.db.models.signals import post_delete
 from django.dispatch import receiver
 from django.utils import timezone
 from django.utils.text import slugify
-
+import django_filters
 
 def upload_to_path(instance: 'Blog', filename: str) -> str:
     user_id: str = instance.author.id
@@ -84,3 +84,10 @@ class Comment(models.Model):
 
     def __str__(self) -> str:
         return f'{self.blog}-{self.user}'
+    
+class BlogFilter(django_filters.FilterSet):
+    title = django_filters.CharFilter(lookup_expr='iexact')
+
+    class Meta:
+        model = Blog
+        fields = ['level', 'category', 'title']

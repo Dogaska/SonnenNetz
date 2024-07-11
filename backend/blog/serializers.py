@@ -1,4 +1,4 @@
-from rest_framework.serializers import CharField, ImageField, SlugField, RelatedField, ModelSerializer
+from rest_framework.serializers import CharField, ImageField, SlugField, RelatedField, ModelSerializer, HyperlinkedRelatedField
 
 from .models import Blog, Comment
 
@@ -43,4 +43,3 @@ class CommentSerializer(ModelSerializer):
         model = Comment
         fields = ['id', 'content', 'created_at', 'blog', 'blog_slug', 
                   'user', 'user_username', 'user_first_name', 'user_last_name', 'user_profile_picture']
-                  
