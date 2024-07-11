@@ -82,8 +82,9 @@ class CommentPostView(CreateAPIView):
             
             data = {}
             data['blog'] = str(blog.id)
-            data['user'] = str(request.user.id)
+            data['user'] = request.user.id
             data['content'] = request.data.get('content', '')
+            print(request.headers.get('Authorization'))
 
             comment_serializer = CommentSerializer(data=data)
             if comment_serializer.is_valid(raise_exception=True):
