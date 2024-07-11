@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
-from rest_framework import status
+from rest_framework import status, viewsets
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.permissions import IsAuthenticated, DjangoModelPermissionsOrAnonReadOnly, AllowAny
 from rest_framework.request import Request
@@ -8,10 +8,11 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.generics import RetrieveAPIView, CreateAPIView
 
-from .models import Blog, Comment
+from .models import Blog, BlogFilter, Comment
 from .pagination import CustomPageNumberPagination
 from .serializers import BlogSerializer, CommentSerializer
 import uuid
+from django_filters import rest_framework as filters
 
 # ------------------------------ Blog views ------------------------------ #
 class AllBlogsListView(APIView):
@@ -130,3 +131,10 @@ class CommentDetailView(APIView):
                 return Response(data={'message': 'Blog does not exist'}, status=status.HTTP_404_NOT_FOUND)
             else:
                 return Response(data={'message': 'Comment does not exist'}, status=status.HTTP_404_NOT_FOUND)
+            
+
+class BlogViewSet(viewsets.ModelViewSet):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = BlogFilter
