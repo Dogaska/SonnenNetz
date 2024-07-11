@@ -34,17 +34,9 @@ export function BlogComment() {
   const submission = (data: { comment: string }) => {
     if (token) {
       console.log(data); // Logging the data before sending
-      AxiosInstance.post(
-        `api/resources/${slug}/commentpost/`,
-        {
-          content: data.comment,
-        },
-        {
-          headers: {
-            Authorization: `Token ${token}`,
-          },
-        }
-      )
+      AxiosInstance.post(`api/resources/${slug}/commentpost/`, {
+        content: data.comment,
+      })
         .then((response) => {
           // Add the new comment to the existing comments state
           setCommentData([...commentData, response.data]);
