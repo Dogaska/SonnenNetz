@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import AxiosInstance from "../axios/AxiosInstance";
 import { useState, useEffect } from "react";
+import { Pagination } from "../common/pagination";
 
 // Define the Post interface according to the actual data structure
-interface Post {
+interface Offer {
   progress: string;
   offer_description: string;
   offer_excerpt: string;
@@ -19,15 +20,18 @@ interface Post {
   start_date: string;
 }
 
-export function OfferList() {
-  const [offerData, setOfferData] = useState<Post[]>([]);
+export function OfferList(props: { numOfferPerPage: number }) {
+  const { numOfferPerPage } = props;
+  const [offerData, setOfferData] = useState<Offer[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
 
   const GetOfferData = () => {
-    AxiosInstance.get(`api/offers/all/`)
+    AxiosInstance.get(`api/offers/?page=${currentPage}`)
       .then((res) => {
         if (res.data.results && Array.isArray(res.data.results)) {
           setOfferData(res.data.results);
-          console.log(res.data.results);
+          setTotalPages(Math.ceil(res.data.count / numOfferPerPage));
         }
       })
       .catch((error) => {
@@ -37,7 +41,7 @@ export function OfferList() {
 
   useEffect(() => {
     GetOfferData();
-  }, []);
+  }, [currentPage]);
 
   const formatDate = (dateString: string | number | Date) => {
     const date = new Date(dateString);
@@ -92,7 +96,7 @@ export function OfferList() {
                 }
                 key={offer.id}
               >
-                <div className="flex flex-col lg:flex-row items-center py-6 border-b border-gray-200 gap-6 w-full">
+                <div className="flex flex-col lg:flex-row items-center py-6 border-b border-gray-200 gap-6 w-full hover:bg-indigo-50">
                   <div className="ml-5 img-box w-full lg:max-w-[180px]">
                     <img
                       src={`http://localhost:8000${offer.cover_image}`}
@@ -172,6 +176,11 @@ export function OfferList() {
               </Link>
             ))}
           </div>
+          <Pagination
+            totalPages={totalPages}
+            currentPage={currentPage}
+            onPageChange={setCurrentPage}
+          />
         </div>
       </section>
     </div>

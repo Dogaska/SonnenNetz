@@ -1,6 +1,7 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
-export function SearchBar() {
+export function SearchBar(props: { barText: string }) {
+  const { barText } = props;
   return (
     <div className="mx-auto max-w-7xl px-4 lg:px-8">
       <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 w-full ">
@@ -16,7 +17,7 @@ export function SearchBar() {
               type="search"
               id="default-search"
               className="block w-full pr-20 p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500"
-              placeholder="Search Offers..."
+              placeholder={barText}
               required={false}
             />
             <button

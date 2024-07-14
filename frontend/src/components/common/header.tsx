@@ -86,3 +86,19 @@ export function HeaderOffers() {
     </header>
   );
 }
+
+export function HeaderBlogs() {
+  return (
+    <header className="bg-white w-full">
+      <div className="mx-auto max-w-5xl py-20 lg:px-8 text-center">
+        <h1 className="text-5xl font-bold tracking-tight text-gray-900">
+          Blogs
+        </h1>
+        <h2 className="text-xl tracking-tight text-gray-500 mt-8 italic">
+          We've compiled resources to support your community energy project at
+          any stage.
+        </h2>
+      </div>
+    </header>
+  );
+}
