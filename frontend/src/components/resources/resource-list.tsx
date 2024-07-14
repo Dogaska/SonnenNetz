@@ -63,7 +63,6 @@ export function ResourceList() {
         return "bg-rose-100";
       default:
         return "bg-gray-100";
-        return "bg-gray-100";
     }
   };
 

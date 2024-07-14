@@ -17,9 +17,15 @@ class Offer(models.Model):
         PROJECT_OFFER = 'Project Offer'
         INVESTMENT_OFFER = 'Investment Offer'
 
+    class OfferStatus(models.TextChoices):
+        PREVERIFICATION = 'Pre verification'
+        ACTIVE = 'Active'
+        POSTVERIFICATION = 'Post verification'
+        COMPLETED = 'Completed'
+
     slug = models.SlugField(max_length=250, null=True, blank=True)
     created_by = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='%(class)s_owner')
+        User, on_delete=models.CASCADE, related_name="%(class)s_owner")
     offer_name = models.CharField(max_length=255)
     offer_description = models.TextField()
     motivation = models.TextField()
@@ -29,11 +35,11 @@ class Offer(models.Model):
     location = models.CharField(max_length=255)
     start_date = models.DateField(default=now)
     end_date = models.DateField(default=now)
-    status = models.CharField(max_length=100)
-    progress = models.DecimalField(max_digits=4, decimal_places=1)
+    status = models.CharField(
+        max_length=20, choices=OfferStatus.choices, blank=False, null=False, default=OfferStatus.PREVERIFICATION)
+    progress = models.DecimalField(max_digits=4, decimal_places=1, default=0.0)
     cover_image = models.ImageField(
-        upload_to='offer_photos/', max_length=200, blank=True, null=True)
-    images = models.ImageField(upload_to='%(class)s_uploads/', default='defaults/%(class)s_default.jpg')
+        upload_to='offers_cover_images/', max_length=200, blank=True, null=True, default='offers_cover_images/default.png')
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     
@@ -58,7 +64,6 @@ class SurfaceOffer(Offer):
 
     surface_type = models.CharField(max_length=100)
     surface_area = models.DecimalField(max_digits=9, decimal_places=2)
-    file_upload = models.FileField(upload_to ='uploads/surface_offers', default= None)
     max_investment_limit = models.DecimalField(max_digits=12, decimal_places=2)
     investment_amount = models.DecimalField(max_digits=12, decimal_places=2)
 
@@ -72,7 +77,7 @@ class InvestmentOffer(Offer):
         ordering = ('-start_date',)
 
     investment_amount = models.DecimalField(max_digits=12, decimal_places=2)
-    file_upload = models.FileField(upload_to ='uploads/investment_offers', default= None)
+    
 
     def __str__(self) -> str:
         return f'{self.offer_name}-{self.created_by}'
@@ -85,7 +90,21 @@ class ProjectOffer(Offer):
     investment_amount = models.DecimalField(max_digits=12, decimal_places=2)
     surface_area = models.DecimalField(max_digits=12, decimal_places=2)
     max_investment_limit = models.DecimalField(max_digits=12, decimal_places=2)
-    file_upload = models.FileField(upload_to ='uploads/project_offers', default= None) 
 
     def __str__(self) -> str:
         return f'{self.offer_name}-{self.created_by}'
+    
+
+
+class OfferImage(models.Model):
+    surface_offer = models.ForeignKey('SurfaceOffer', related_name='images', on_delete=models.CASCADE, null=True, blank=True)
+    investment_offer = models.ForeignKey('InvestmentOffer', related_name='images', on_delete=models.CASCADE, null=True, blank=True)
+    project_offer = models.ForeignKey('ProjectOffer', related_name='images', on_delete=models.CASCADE, null=True, blank=True)
+    image = models.ImageField(upload_to='offer_image_uploads/')
+
+
+class OfferFile(models.Model):
+    surface_offer = models.ForeignKey('SurfaceOffer', related_name='files', on_delete=models.CASCADE, null=True, blank=True)
+    investment_offer = models.ForeignKey('InvestmentOffer', related_name='files', on_delete=models.CASCADE, null=True, blank=True)
+    project_offer = models.ForeignKey('ProjectOffer', related_name='files', on_delete=models.CASCADE, null=True, blank=True)
+    file = models.FileField(upload_to='offer_file_uploads/')
