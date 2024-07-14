@@ -84,8 +84,23 @@ function FileInput(props: {
   text: any;
   extension: any;
   size: any;
+  type: any;
+  accept: any;
+  multiple: any;
+  onChange: any;
 }) {
-  const { id, htmlFor, name, text, extension, size } = props;
+  const {
+    id,
+    htmlFor,
+    name,
+    text,
+    extension,
+    size,
+    type,
+    accept,
+    multiple,
+    onChange,
+  } = props;
 
   const { register } = useForm();
 
@@ -105,7 +120,10 @@ function FileInput(props: {
             <input
               id={id}
               {...register(name)}
-              type="file"
+              type={type}
+              accept={accept}
+              multiple={multiple}
+              onChange={onChange}
               className="sr-only"
             />
           </label>
