@@ -1,12 +1,12 @@
 import { NavigationBar } from "../components/common/navigartion-bar";
 import { FooterSimple } from "../components/common/footer-simple";
-import { ResourceList } from "../components/resources/resource-list";
+import { BlogsTable } from "../components/resources/blogs-table";
 
 function Resources() {
   return (
     <>
       <NavigationBar></NavigationBar>
-      <ResourceList></ResourceList>
+      <BlogsTable></BlogsTable>
       <FooterSimple></FooterSimple>
     </>
   );

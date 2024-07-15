@@ -3,58 +3,199 @@ import { InputBox, DateInputBox, TextArea, FileInput } from "../../form/input";
 import { FormButton } from "../../form/button";
 import { FormLabel } from "../../form/label";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import AxiosInstance from "../../axios/AxiosInstance";
 
 export function InvestmentForm() {
-  const { register, handleSubmit } = useForm();
+  const { register, reset, handleSubmit } = useForm();
+  const [coverImage, setCoverImage] = useState(null);
+  const [coverImagePreview, setCoverImagePreview] = useState(null);
+  const [pictures, setPictures] = useState([]);
+  const [documents, setDocuments] = useState([]);
+  const [picturePreviews, setPicturePreviews] = useState([]);
+  const [documentPreviews, setDocumentPreviews] = useState([]);
+  const [showMessage, setShowMessage] = useState(false);
+  const [isPostSuccessful, setIsPostSuccessful] = useState(false);
+
+  const navigate = useNavigate();
+
+  const handleCoverImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const imagePreview = {
+        name: file.name,
+        url: URL.createObjectURL(file),
+        size: file.size,
+      };
+      setCoverImage(file);
+      setCoverImagePreview(imagePreview);
+    }
+  };
+
+  const handlePicturesChange = (event) => {
+    const filesArray = Array.from(event.target.files);
+    const filePreviews = filesArray.map((file) => ({
+      name: file.name,
+      url: URL.createObjectURL(file),
+      size: file.size,
+    }));
+    setPictures(filesArray);
+    setPicturePreviews(filePreviews);
+  };
+
+  const handleDocumentsChange = (event) => {
+    const filesArray = Array.from(event.target.files);
+    const filePreviews = filesArray.map((file) => ({
+      name: file.name,
+      url: URL.createObjectURL(file),
+      size: file.size,
+    }));
+    setDocuments(filesArray);
+    setDocumentPreviews(filePreviews);
+  };
+
+  const onSubmit = (data) => {
+    const formData = new FormData();
+    Object.entries(data).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+    formData.append("cover_image", coverImage);
+    pictures.forEach((picture) => {
+      formData.append("images", picture);
+    });
+    documents.forEach((document) => {
+      formData.append("files", document);
+    });
+    formData.append("offer_type", "Investment Offer");
+
+    for (let [key, value] of formData.entries()) {
+      console.log(key, value);
+    }
+
+    AxiosInstance.post("/api/offers/", formData, {
+      headers: {
+        "Content-Type": undefined,
+      },
+    })
+      .then((response) => {
+        console.log("Success:", response.data);
+        setShowMessage(true);
+        setIsPostSuccessful(true);
+
+        // Navigate to the new page after 3 seconds
+        setTimeout(() => {
+          navigate("/projects");
+        }, 3000);
+      })
+      .catch((error) => {
+        setShowMessage(true);
+        setIsPostSuccessful(false);
+        console.error(
+          "There was an error creating the offer!",
+          error.response.data
+        );
+      });
+  };
+
   return (
     <div className="container mx-auto max-w-4xl px-4  mt-20">
       <FormHeader>Create a new investment offer</FormHeader>
-      <form action="">
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="grid md:grid-cols-2 grid-cols-1 gap-x-8">
           <div>
-            <FormLabel htmlFor="first_name" isRequired={true}>
-              Investment Name
+            <FormLabel htmlFor="offer-name" isRequired={true}>
+              Offer Name
             </FormLabel>
             <div className="mt-2">
               <InputBox
-                id="first_name"
-                name="first_name"
+                id="offer_name"
+                name="offer_name"
                 type="text"
-                autoComplete="given-name"
+                autoComplete="off"
                 required={true}
-                placeholder="First name"
+                placeholder="Offer name"
                 register={register}
               ></InputBox>
             </div>
           </div>
           <div>
-            <FormLabel htmlFor="last_name" isRequired={true}>
-              Investor
+            <FormLabel htmlFor="investment_amount" isRequired={true}>
+              Investment amount
             </FormLabel>
             <div className="mt-2">
               <InputBox
-                id="last_name"
-                name="last_name"
-                type="text"
-                autoComplete="family-name"
+                id="investment_amount"
+                name="investment_amount"
+                type="number"
+                autoComplete="off"
                 required={true}
-                placeholder="Last name"
+                placeholder="Investment amount in euros."
                 register={register}
               ></InputBox>
             </div>
           </div>
+
           <div className="col-span-full">
-            <FormLabel htmlFor="description" isRequired={true}>
-              Investment Description
+            <FormLabel htmlFor="offer_description" isRequired={true}>
+              Offer Description
             </FormLabel>
             <TextArea
               id="description"
-              name="description"
-              placeholder="Write project description..."
+              name="offer_description"
+              placeholder="Write an offer description..."
               rows={6}
               register={register}
             ></TextArea>
           </div>
+          <div className="col-span-full">
+            <FormLabel htmlFor="motivation" isRequired={false}>
+              Offer Motivation
+            </FormLabel>
+            <TextArea
+              id="motivation"
+              name="motivation"
+              placeholder="Write a motivation text that describes your dream energy community..."
+              rows={6}
+              register={register}
+            ></TextArea>
+          </div>
+          {/*}
+          <div>
+            <FormLabel htmlFor="investment_type" isRequired={true}>
+              Investment type
+            </FormLabel>
+            <div className="mt-2">
+              <InputBox
+                id="investment_type"
+                name="investment_type"
+                type="text"
+                autoComplete="off"
+                required={true}
+                placeholder="Roof etc.."
+                register={register}
+              ></InputBox>
+            </div>
+          </div>
+          */}
+
+          <div className="col-span-full">
+            <FormLabel htmlFor="last_name" isRequired={true}>
+              Investment Location
+            </FormLabel>
+            <div className="mt-2">
+              <InputBox
+                id="location"
+                name="location"
+                type="text"
+                autoComplete="off"
+                required={true}
+                placeholder="Investment location"
+                register={register}
+              ></InputBox>
+            </div>
+          </div>
+
           <div>
             <FormLabel htmlFor="startdate" isRequired={true}>
               Start date
@@ -64,9 +205,9 @@ export function InvestmentForm() {
                 id="start_date"
                 name="start_date"
                 type="date"
-                autoComplete="bday"
+                autoComplete="off"
                 required={true}
-                placeholder="dd/mm/yy"
+                placeholder="mm/dd/yyyy"
                 register={register}
               ></DateInputBox>
             </div>
@@ -90,36 +231,119 @@ export function InvestmentForm() {
         </div>
 
         <div className="col-span-full">
-          <FormLabel htmlFor="photolabel" isRequired={true}>
+          <FormLabel htmlFor="cover-photo-upload" isRequired={true}>
+            Cover Picture
+          </FormLabel>
+          <FileInput
+            id="cover-photo-upload"
+            name="cover_image"
+            htmlFor="cover-photo-upload"
+            text="Upload offer cover image"
+            type="file"
+            accept=".png, .jpg"
+            extension="PNG, JPG ... "
+            size="10"
+            onChange={handleCoverImageChange}
+            multiple={false}
+          ></FileInput>
+          <div className="preview-container">
+            {coverImagePreview ? (
+              <div className="preview">
+                <a
+                  href={coverImagePreview.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {coverImagePreview.name}
+                </a>
+                <span className="flex-shrink-0 text-gray-400">
+                  {(coverImagePreview.size / 1024 / 1024).toFixed(2)} MB
+                </span>
+              </div>
+            ) : (
+              <div>No cover image selected.</div>
+            )}
+          </div>
+        </div>
+
+        <div className="col-span-full">
+          <FormLabel htmlFor="photo-upload" isRequired={true}>
             Pictures
           </FormLabel>
           <FileInput
             id="photo-upload"
-            name="photo-upload"
+            name="images"
             htmlFor="photo-upload"
             text="Upload your images"
+            type="file"
+            accept=".png, .jpg"
             extension="PNG, JPG ... "
             size="10"
+            onChange={handlePicturesChange}
+            multiple={true}
           ></FileInput>
+          <div className="preview-container">
+            {picturePreviews.map((file, index) => (
+              <div key={index} className="preview">
+                <a href={file.url} target="_blank" rel="noopener noreferrer">
+                  {file.name}
+                </a>
+                <span className="flex-shrink-0 text-gray-400">
+                  {(file.size / 1024 / 1024).toFixed(2)} MB
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
-
-        <div className="relative mb-6"></div>
-
         <div className="col-span-full">
-          <FormLabel htmlFor="doclabel" isRequired={true}>
+          <FormLabel htmlFor="doc-upload" isRequired={true}>
             Additional Documents
           </FormLabel>
           <FileInput
             id="doc-upload"
-            name="doc-upload"
+            name="file_upload"
             htmlFor="doc-upload"
+            type="file"
             text="Upload your documents"
+            accept=".pdf, .doc, .docx"
             extension="PDF, DOCX ... "
             size="10"
+            onChange={handleDocumentsChange}
+            multiple={true}
           ></FileInput>
+          <div className="preview-container">
+            {documentPreviews.map((file, index) => (
+              <div key={index} className="preview">
+                <a href={file.url} target="_blank" rel="noopener noreferrer">
+                  {file.name}
+                </a>
+                <span className="flex-shrink-0 text-gray-400">
+                  {(file.size / 1024 / 1024).toFixed(2)} MB
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
-
-        <div className="flex items-center  my-6">
+        {showMessage ? (
+          <div className="my-4">
+            {isPostSuccessful ? (
+              <div className="flex w-full justify-center rounded-md bg-green-500 px-3 py-1.5 text-sm leading-6 text-white shadow-sm">
+                <p className="my-2 justify-center text-center text-sm text-white">
+                  Offer is successfully created and listed. You are directing to
+                  offer listing page...
+                </p>
+              </div>
+            ) : (
+              <div className="flex w-full justify-center rounded-md bg-red-500 px-3 py-1.5 text-sm leading-6 text-white shadow-sm">
+                <p className="my-2 justify-center text-center text-sm text-white">
+                  Offer creation is failed. Please make sure you add all
+                  necessary information!
+                </p>
+              </div>
+            )}
+          </div>
+        ) : null}
+        {/*<div className="flex items-center  my-6">
           <input
             id="checkbox-policy"
             type="checkbox"
@@ -135,7 +359,7 @@ export function InvestmentForm() {
               privacy policy.
             </a>
           </label>
-        </div>
+        </div>*/}
         <div className="mt-6 flex justify-end gap-x-6 w-full h-12 text-base font-semibold leading-6">
           <FormButton
             type="button"

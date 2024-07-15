@@ -1,41 +1,32 @@
-from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from rest_framework import status, viewsets
 from rest_framework.parsers import FormParser, MultiPartParser
-from rest_framework.permissions import IsAuthenticated, DjangoModelPermissionsOrAnonReadOnly, AllowAny
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.generics import RetrieveAPIView, CreateAPIView
+import uuid
 
-from .models import Blog, BlogFilter, Comment
+from .filters import BlogFilter
+from .models import Blog, Comment
 from .pagination import CustomPageNumberPagination
 from .serializers import BlogSerializer, CommentSerializer
-import uuid
-from django_filters import rest_framework as filters
+from django_filters.rest_framework import DjangoFilterBackend
 
 # ------------------------------ Blog views ------------------------------ #
 class AllBlogsListView(APIView):
     permission_classes = [AllowAny]
-
-    def get_queryset(self):
-        category = self.request.query_params.get('category', None)
-        level = self.request.query_params.get('level', None)
-        
-        if category and level is None:
-            return Blog.objects.filter(category=category)
-        elif level and category is None:
-            return Blog.objects.filter(level=level)
-        elif level and category:
-            return Blog.objects.filter(level=level, category=category)
-        
-        return Blog.objects.all()
-
-    def get(self, request: Request) -> Response:
-        queryset = self.get_queryset()  # Ensure you call the method
-        total = queryset.count()
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = BlogFilter
+    
+    def get(self, request):
+        queryset = Blog.objects.all()
+        filtered_queryset = self.filterset_class(request.GET, queryset=queryset).qs
+        total = filtered_queryset.count()
         paginator = CustomPageNumberPagination()
-        return paginator.generate_response(queryset, BlogSerializer, request, total)
+        paginator.page_size = 3
+        return paginator.generate_response(filtered_queryset, BlogSerializer, request, total)
 
 class BlogDetailView(RetrieveAPIView):
     permission_classes = [AllowAny]
@@ -49,6 +40,8 @@ class BlogDetailView(RetrieveAPIView):
         except Blog.DoesNotExist:
             return Response(data={'message': 'Blog does not exist'}, status=status.HTTP_404_NOT_FOUND)
 
+
+# ------------------------------ Comment views ------------------------------ #
 class CommentsListView(APIView):
 
     permission_classes = [AllowAny]
@@ -82,8 +75,9 @@ class CommentPostView(CreateAPIView):
             
             data = {}
             data['blog'] = str(blog.id)
-            data['user'] = str(request.user.id)
+            data['user'] = request.user.id
             data['content'] = request.data.get('content', '')
+            print(request.headers.get('Authorization'))
 
             comment_serializer = CommentSerializer(data=data)
             if comment_serializer.is_valid(raise_exception=True):
@@ -133,8 +127,3 @@ class CommentDetailView(APIView):
                 return Response(data={'message': 'Comment does not exist'}, status=status.HTTP_404_NOT_FOUND)
             
 
-class BlogViewSet(viewsets.ModelViewSet):
-    queryset = Blog.objects.all()
-    serializer_class = BlogSerializer
-    filter_backends = (filters.DjangoFilterBackend,)
-    filterset_class = BlogFilter

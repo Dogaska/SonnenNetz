@@ -1,43 +1,9 @@
 import { Link } from "react-router-dom";
-import AxiosInstance from "../axios/AxiosInstance";
-import { useState, useEffect } from "react";
 
 // Define the Post interface according to the actual data structure
-interface Post {
-  progress: string;
-  offer_description: string;
-  offer_excerpt: string;
-  offer_type: string;
-  id: number;
-  slug: string;
-  offer_name: string;
-  location?: string;
-  cover_image?: string;
-  surface_area?: string;
-  investment_amount?: string;
-  status: string;
-  start_date: string;
-}
 
-export function OfferList() {
-  const [offerData, setOfferData] = useState<Post[]>([]);
-
-  const GetOfferData = () => {
-    AxiosInstance.get(`api/offers/all/`)
-      .then((res) => {
-        if (res.data.results && Array.isArray(res.data.results)) {
-          setOfferData(res.data.results);
-          console.log(res.data.results);
-        }
-      })
-      .catch((error) => {
-        console.error("Failed to fetch offer data:", error);
-      });
-  };
-
-  useEffect(() => {
-    GetOfferData();
-  }, []);
+export function OfferList(props: { offerData: any }) {
+  const { offerData } = props;
 
   const formatDate = (dateString: string | number | Date) => {
     const date = new Date(dateString);
@@ -79,7 +45,7 @@ export function OfferList() {
       <section className="py-24 relative">
         <div className="w-full max-w-7xl px-4 md:px-5 lg:px-6 mx-auto">
           <div className="main-box border border-gray-200 rounded-xl pt-6 max-w-xl lg:max-w-full mx-auto">
-            {offerData.map((offer) => (
+            {offerData.map((offer: any) => (
               <Link
                 to={
                   offer.offer_type === "Surface Offer"
@@ -92,7 +58,7 @@ export function OfferList() {
                 }
                 key={offer.id}
               >
-                <div className="flex flex-col lg:flex-row items-center py-6 border-b border-gray-200 gap-6 w-full">
+                <div className="flex flex-col lg:flex-row items-center py-6 border-b border-gray-200 gap-6 w-full hover:bg-indigo-50">
                   <div className="ml-5 img-box w-full lg:max-w-[180px]">
                     <img
                       src={`http://localhost:8000${offer.cover_image}`}

@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from math import ceil
 
 class CustomPageNumberPagination(pagination.PageNumberPagination):
-    page_size = 12
+    page_size = 6
 
     def generate_response(self, query_set, serializer, request: Request, total=None) -> Response:
         try:

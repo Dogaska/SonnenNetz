@@ -85,9 +85,3 @@ class Comment(models.Model):
     def __str__(self) -> str:
         return f'{self.blog}-{self.user}'
     
-class BlogFilter(django_filters.FilterSet):
-    title = django_filters.CharFilter(lookup_expr='iexact')
-
-    class Meta:
-        model = Blog
-        fields = ['level', 'category', 'title']
