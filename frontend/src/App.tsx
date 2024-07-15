@@ -16,6 +16,8 @@ import { PasswordResetRequest } from "./pages/PasswordResetRequest";
 import { PasswordReset } from "./pages/PasswordReset";
 import { BlogArticle } from "./pages/BlogArticle";
 import ProtectedRoute from "./components/authentication/protected-route";
+import { Chat } from "./components/chat/chat";
+import { Conversation } from "./components/chat/conversation";
 
 export default function App() {
   return (
@@ -43,6 +45,10 @@ export default function App() {
             path="/projects/investment-offer/*"
             element={<InvestmentOffer />}
           />
+          {/*Chat*/}
+          <Route path="/chat" element={<Chat />} />
+          <Route path="/chat/:chat_id/:username" element={<Chat />} />
+
           {/*Features*/}
         </Route>
         <Route path="/about" element={<About />} />

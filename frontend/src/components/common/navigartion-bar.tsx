@@ -72,7 +72,7 @@ export function NavigationBar() {
                 <div className="flex flex-shrink-0 items-center">
                   <img
                     className="block h-12 w-auto lg:h-16 hover:shadow-lg transition-shadow duration-300"
-                    src="src/assets/images/Logo_sonnennetz.svg"
+                    src="src/assets/images/Logo_Sonnennetz.svg"
                     alt="SonnenNetz"
                     style={{ filter: "drop-shadow(2px 4px 6px black)" }}
                   />

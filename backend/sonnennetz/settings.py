@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     "users",
     "offers",
     "blog",
+    "channels",
+    "chat",
 ]
 
 MIDDLEWARE = [
@@ -186,3 +188,16 @@ CORS_ORIGIN_ALLOW_ALL = True
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# For chat functionality
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
+
+# Set ASGI application to handle routing
+ASGI_APPLICATION = 'sonnnennetz.asgi.application'

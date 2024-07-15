@@ -24,7 +24,6 @@ export function ResourceList() {
       .then((res) => {
         if (res.data.results && Array.isArray(res.data.results.result)) {
           setBlogData(res.data.results.result);
-          setBlogData(res.data.results.result);
         }
       })
       .catch((error) => {
@@ -62,7 +61,6 @@ export function ResourceList() {
       case "advance":
         return "bg-rose-100";
       default:
-        return "bg-gray-100";
         return "bg-gray-100";
     }
   };
