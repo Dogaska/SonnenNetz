@@ -1,47 +1,9 @@
 import { Link } from "react-router-dom";
-import AxiosInstance from "../axios/AxiosInstance";
-import { useState, useEffect } from "react";
-import { Pagination } from "../common/pagination";
 
 // Define the Post interface according to the actual data structure
-interface Offer {
-  progress: string;
-  offer_description: string;
-  offer_excerpt: string;
-  offer_type: string;
-  id: number;
-  slug: string;
-  offer_name: string;
-  location?: string;
-  cover_image?: string;
-  surface_area?: string;
-  investment_amount?: string;
-  status: string;
-  start_date: string;
-}
 
-export function OfferList(props: { numOfferPerPage: number }) {
-  const { numOfferPerPage } = props;
-  const [offerData, setOfferData] = useState<Offer[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
-
-  const GetOfferData = () => {
-    AxiosInstance.get(`api/offers/?page=${currentPage}`)
-      .then((res) => {
-        if (res.data.results && Array.isArray(res.data.results)) {
-          setOfferData(res.data.results);
-          setTotalPages(Math.ceil(res.data.count / numOfferPerPage));
-        }
-      })
-      .catch((error) => {
-        console.error("Failed to fetch offer data:", error);
-      });
-  };
-
-  useEffect(() => {
-    GetOfferData();
-  }, [currentPage]);
+export function OfferList(props: { offerData: any }) {
+  const { offerData } = props;
 
   const formatDate = (dateString: string | number | Date) => {
     const date = new Date(dateString);
@@ -83,7 +45,7 @@ export function OfferList(props: { numOfferPerPage: number }) {
       <section className="py-24 relative">
         <div className="w-full max-w-7xl px-4 md:px-5 lg:px-6 mx-auto">
           <div className="main-box border border-gray-200 rounded-xl pt-6 max-w-xl lg:max-w-full mx-auto">
-            {offerData.map((offer) => (
+            {offerData.map((offer: any) => (
               <Link
                 to={
                   offer.offer_type === "Surface Offer"
@@ -176,11 +138,6 @@ export function OfferList(props: { numOfferPerPage: number }) {
               </Link>
             ))}
           </div>
-          <Pagination
-            totalPages={totalPages}
-            currentPage={currentPage}
-            onPageChange={setCurrentPage}
-          />
         </div>
       </section>
     </div>
