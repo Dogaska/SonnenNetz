@@ -1,59 +1,7 @@
-import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import AxiosInstance from "../axios/AxiosInstance";
-import { Pagination } from "../common/pagination";
 
-interface Blog {
-  id: string;
-  title: string;
-  slug: string;
-  excerpt: string;
-  cover_image: string;
-  created_at: string;
-  category: string;
-  level: string;
-  author_username: string;
-  author_profile_image: string;
-  profession: string;
-}
-
-export function ResourceList() {
-  const [isDataLoaded, setIsDataLoaded] = useState(false);
-  const [blogData, setBlogData] = useState<Blog[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
-
-  const GetBlogData = () => {
-    AxiosInstance.get(`api/resources/all/?page=${currentPage}`)
-      .then((res) => {
-        if (res.data.results && Array.isArray(res.data.results.result)) {
-          setBlogData(res.data.results.result);
-          console.log(res.data.results.result);
-          setTotalPages(res.data.results.total_pages);
-          setIsDataLoaded(true);
-        }
-      })
-      .catch((error) => {
-        console.error("Failed to fetch offer data:", error);
-      });
-  };
-
-  useEffect(() => {
-    GetBlogData();
-  }, [currentPage]);
-
-  //useEffect(() => {
-  //  AxiosInstance.get("api/resources/all/")
-  //    .then((res) => {
-  //      if (res.data.results && Array.isArray(res.data.results.result)) {
-  //        setBlogData(res.data.results.result);
-  //        setBlogData(res.data.results.result);
-  //      }
-  //    })
-  //    .catch((error) => {
-  //      console.error("Failed to fetch blog data:", error);
-  //    });
-  //}, []);
+export function ResourceList(props: { blogData: any; isDataLoaded: any }) {
+  const { blogData, isDataLoaded } = props;
 
   const formatDate = (dateString: string | number | Date) => {
     const date = new Date(dateString);
@@ -95,7 +43,7 @@ export function ResourceList() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <article className="flex flex-col px-10 py-10 border border-gray-300 rounded-lg p-4 shadow-sm">
             <div className="mx-auto mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {blogData.map((post, index) => (
+              {blogData.map((post: any, index: number) => (
                 <article
                   key={index}
                   className="flex flex-col border border-gray-300 rounded-lg p-4 shadow-sm hover:shadow-md"
@@ -155,11 +103,6 @@ export function ResourceList() {
               ))}
             </div>
           </article>
-          <Pagination
-            totalPages={totalPages}
-            currentPage={currentPage}
-            onPageChange={setCurrentPage}
-          />
         </div>
       </div>
     )

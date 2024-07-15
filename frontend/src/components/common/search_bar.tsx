@@ -1,11 +1,24 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { useState } from "react";
 
-export function SearchBar(props: { barText: string }) {
-  const { barText } = props;
+export function SearchBar(props: { onSearch: any; barText: string }) {
+  const { onSearch, barText } = props;
+
+  const [input, setInput] = useState("");
+
+  const handleSearch = (event: any) => {
+    setInput(event.target.value);
+  };
+
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
+    onSearch(input);
+  };
+
   return (
     <div className="mx-auto max-w-7xl px-4 lg:px-8">
       <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 w-full ">
-        <form className="w-full">
+        <form className="w-full" onSubmit={handleSubmit}>
           <div className="relative w-full">
             <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
               <MagnifyingGlassIcon
@@ -14,8 +27,10 @@ export function SearchBar(props: { barText: string }) {
               />
             </div>
             <input
-              type="search"
+              type="text"
               id="default-search"
+              value={input}
+              onChange={handleSearch}
               className="block w-full pr-20 p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500"
               placeholder={barText}
               required={false}
