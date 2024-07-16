@@ -44,7 +44,8 @@ For the details, please check:
     ```bash
     npm run dev
     ```
-    After that you will see the link.
+ 4. After that, you will see the link.
+    
     ![image](https://github.com/user-attachments/assets/83efbe75-8cc3-42cb-9bed-7e27212def5e)
 
     
