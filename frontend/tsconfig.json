@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "composite": true,
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "target": "ES2020",
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
@@ -7,10 +9,13 @@
     "skipLibCheck": true,
 
     /* Bundler mode */
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+   // "resolveJsonModule": true,
+   "allowImportingTsExtensions":true,
     "isolatedModules": true,
+    "moduleDetection": "force",
     "noEmit": true,
     "jsx": "react-jsx",
 
@@ -27,9 +32,8 @@
         "./src/*"
       ]
     }
-    // ...
-
   },
-  "include": ["src"],
+  "include": ["src", "src/**/*.tsx",
+  "src/**/*.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

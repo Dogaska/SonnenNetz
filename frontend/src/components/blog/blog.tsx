@@ -5,6 +5,7 @@ import { RelatedBlogs } from "./related-blogs";
 import { BlogComment } from "./blog-comment";
 
 interface Post {
+  content: string;
   id: string;
   title: string;
   slug: string;
@@ -67,7 +68,7 @@ export function BlogTemplate() {
     <>
       <main className="pt-8 pb-16 bg-white dark:bg-gray-900">
         <div className="px-8 mx-auto max-w-4xl">
-          {blogData.map((post) => (
+          {blogData.map((post: any) => (
             <article
               key={post.id}
               className="mx-auto w-full max-w-max format format-sm sm:format-base lg:format-lg format-blue dark:format-invert"

@@ -1,4 +1,8 @@
-export function FormLabel(props) {
+export function FormLabel(props: {
+  htmlFor: any;
+  isRequired: any;
+  children: any;
+}) {
   const { htmlFor, isRequired, children } = props;
 
   return (

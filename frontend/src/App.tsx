@@ -5,7 +5,6 @@ import { Projects } from "./pages/Projects";
 import { ProjectOffer } from "./pages/ProjectOffer";
 import { SurfaceOffer } from "./pages/SurfaceOffer";
 import { InvestmentOffer } from "./pages/InvestmentOffer";
-import { ProjectFeatures } from "./pages/ProjectFeatures";
 import { SurfaceFeatures } from "./pages/SurfaceFeatures";
 import { InvestmentFeatures } from "./pages/InvestmentFeatures";
 import { About } from "./pages/About";
@@ -17,7 +16,6 @@ import { PasswordReset } from "./pages/PasswordReset";
 import { BlogArticle } from "./pages/BlogArticle";
 import ProtectedRoute from "./components/authentication/protected-route";
 import { Chat } from "./components/chat/chat";
-import { Conversation } from "./components/chat/conversation";
 
 export default function App() {
   return (
