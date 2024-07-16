@@ -3,84 +3,17 @@ from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 
-from rest_framework.views import APIView
 from rest_framework.viewsets import ViewSet
 from rest_framework.parsers import FormParser, MultiPartParser
-from rest_framework.generics import RetrieveAPIView, CreateAPIView, ListAPIView
 from rest_framework.response import Response
 
 from .pagination import CustomPageNumberPagination
-from .models import Offer, SurfaceOffer, InvestmentOffer ,ProjectOffer, OfferImage, OfferFile
-from .serializers import OfferSerializer, SurfaceOfferSerializer, InvestmentOfferSerializer, ProjectOfferSerializer
+from .models import SurfaceOffer, InvestmentOffer ,ProjectOffer, Offer,  OfferImage, OfferFile
+from .serializers import SurfaceOfferSerializer, InvestmentOfferSerializer, ProjectOfferSerializer
+from .filters import CombinedOfferFilter
 
-
-class OfferListView(APIView):
-    """ 
-    List all offers, or creates a new offer.
-    """
-    permission_classes = [AllowAny]
-
-    def get(self, request):
-        # Collect all offers
-        surface_offers = SurfaceOffer.objects.all()
-        investment_offers = InvestmentOffer.objects.all()
-        #project_offers = ProjectOffer.objects.all()
-
-        # Combine querysets into a list
-        all_offers = list(surface_offers) + list(investment_offers) #+ list(project_offers)
-
-        # Use the custom paginator to paginate the combined offers
-        paginator = CustomPageNumberPagination()
-        result_page = paginator.paginate_queryset(all_offers, request)
-        if not result_page:
-            return Response({"message": "No offers found"}, status=404)
-
-        # Serialize page objects
-        serialized_results = []
-        for item in result_page:
-            if isinstance(item, SurfaceOffer):
-                serializer = SurfaceOfferSerializer(item)
-            elif isinstance(item, InvestmentOffer):
-                serializer = InvestmentOfferSerializer(item)
-            #elif isinstance(item, ProjectOffer):
-            #    serializer = ProjectOfferSerializer(item)
-            serialized_results.append(serializer.data)
-
-        return paginator.get_paginated_response(serialized_results)
-    
-
-
-class OfferDetailView(RetrieveAPIView):
-    permission_classes = [AllowAny]
-    parser_classes = [MultiPartParser, FormParser]
-
-    def get(self, request, slug: str) -> Response:
-        response_data = {}
-        
-        try:
-            surface_offer = SurfaceOffer.objects.filter(slug=slug).first()
-            investment_offer = InvestmentOffer.objects.filter(slug=slug).first()
-            #project_offers = ProjectOffer.objects.filter(slug=slug).first()
-
-            if surface_offer is not None:
-                serializer = SurfaceOfferSerializer(surface_offer)
-                response_data['surface_offer'] = serializer.data
-            
-            if investment_offer is not None:
-                serializer = InvestmentOfferSerializer(investment_offer)
-                response_data['investment_offer'] = serializer.data
-
-            #if project_offers is not None:
-            #    serializer = ProjectOfferSerializer(project_offers)
-            #    response_data['project_offers'] = serializer.data
-
-            if response_data:
-                return Response(response_data, status=status.HTTP_200_OK)
-            else:
-                return Response({'message': 'Offer not found.'}, status=status.HTTP_404_NOT_FOUND)
-
-        except Exception as e:
-            return Response({'message': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+# Constants
+NUM_OFFER_PER_PAGE = 10
 
 
 class OfferMultiModelViewSet(ViewSet):
@@ -95,19 +28,20 @@ class OfferMultiModelViewSet(ViewSet):
     #        permission_classes = [IsAuthenticated]
     #    return [permission() for permission in permission_classes]
 
+
     def list(self, request):
-        surface_offer_queryset = SurfaceOffer.objects.all()
-        investment_offer_queryset = InvestmentOffer.objects.all()
 
-        all_offers = list(surface_offer_queryset) + list(investment_offer_queryset)
+        filterset_surface_offer = CombinedOfferFilter(request.GET, queryset=SurfaceOffer.objects.all().order_by('-created_at'))
+        filterset_investment_offer = CombinedOfferFilter(request.GET, queryset=InvestmentOffer.objects.all().order_by('-created_at'))
+        filterset = list(filterset_surface_offer.qs) + list(filterset_investment_offer.qs)
+        sorted_filterset = sorted(filterset, key=lambda x: x.created_at, reverse=True)
+        total = len(filterset)
 
-        # Use the custom paginator to paginate the combined offers
         paginator = CustomPageNumberPagination()
-        result_page = paginator.paginate_queryset(all_offers, request)
+        result_page = paginator.paginate_queryset(sorted_filterset, request)
         if not result_page:
             return Response({"message": "No offers found"}, status=404)
 
-        # Serialize page objects
         serialized_results = []
         for item in result_page:
             if isinstance(item, SurfaceOffer):
@@ -116,11 +50,33 @@ class OfferMultiModelViewSet(ViewSet):
                 serializer = InvestmentOfferSerializer(item)
             serialized_results.append(serializer.data)
 
-        return paginator.get_paginated_response(serialized_results)
+        return paginator.generate_response(serialized_results, total=total)
+
+    #def list(self, request):
+    #    surface_offer_queryset = SurfaceOffer.objects.all()
+    #    investment_offer_queryset = InvestmentOffer.objects.all()
+#
+    #    all_offers = list(surface_offer_queryset) + list(investment_offer_queryset)
+#
+    #    # Use the custom paginator to paginate the combined offers
+    #    paginator = CustomPageNumberPagination()
+    #    result_page = paginator.paginate_queryset(all_offers, request)
+    #    if not result_page:
+    #        return Response({"message": "No offers found"}, status=404)
+#
+    #    # Serialize page objects
+    #    serialized_results = []
+    #    for item in result_page:
+    #        if isinstance(item, SurfaceOffer):
+    #            serializer = SurfaceOfferSerializer(item)
+    #        elif isinstance(item, InvestmentOffer):
+    #            serializer = InvestmentOfferSerializer(item)
+    #        serialized_results.append(serializer.data)
+#
+    #    return paginator.get_paginated_response(serialized_results)
 
 
     def create(self, request):
-        print(request.data)
         request.data["created_by"] = request.user.id
         offer_type = request.data.get('offer_type')
         if offer_type == 'Surface Offer':
