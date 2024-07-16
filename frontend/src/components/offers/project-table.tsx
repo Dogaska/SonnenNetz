@@ -25,38 +25,50 @@ interface Offer {
 
 const filterOptions = [
   {
-    key: "category",
+    key: "offer_type",
     options: [
       { label: "Select Category", value: "" },
       { label: "Surface Offer", value: "Surface Offer" },
       { label: "Investment Offer", value: "Investment Offer" },
     ],
   },
+  {
+    key: "status",
+    options: [
+      { label: "Select Status", value: "" },
+      { label: "Pre verification", value: "Surface Offer" },
+      { label: "Active", value: "Active" },
+      { label: "Post verification", value: "Post verification" },
+      { label: "Completed", value: "Completed" },
+    ],
+  },
 ];
 
 export function ProjectTable() {
-  const numOfferPerPage = 12;
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
   const [offerData, setOfferData] = useState<Offer[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [search, setSearch] = useState("");
-  const [filters, setFilters] = useState({ category: "", level: "" });
+  const [filters, setFilters] = useState({ offer_type: "", status: "" });
 
   const GetOfferData = () => {
     let queryParams = `page=${currentPage}`;
     queryParams += search ? `&search=${encodeURIComponent(search)}` : "";
-    queryParams += filters.category
-      ? `&category=${encodeURIComponent(filters.category)}`
+    queryParams += filters.offer_type
+      ? `&offer_type=${encodeURIComponent(filters.offer_type)}`
       : "";
-    queryParams += filters.level
-      ? `&level=${encodeURIComponent(filters.level)}`
+    queryParams += filters.status
+      ? `&status=${encodeURIComponent(filters.status)}`
       : "";
 
     AxiosInstance.get(`http://localhost:8000/api/offers/?${queryParams}`)
       .then((res) => {
-        if (res.data.results && Array.isArray(res.data.results)) {
-          setOfferData(res.data.results);
-          setTotalPages(Math.ceil(res.data.count / numOfferPerPage));
+        if (res.data.results && Array.isArray(res.data.results.result)) {
+          setOfferData(res.data.results.result);
+          console.log(res.data.results.result);
+          setTotalPages(res.data.results.total_pages);
+          setIsDataLoaded(true);
         }
       })
       .catch((error) => {
@@ -66,7 +78,7 @@ export function ProjectTable() {
 
   useEffect(() => {
     GetOfferData();
-  }, [currentPage]);
+  }, [currentPage, search, filters]);
   return (
     <div className="bg-white">
       <HeaderOffers />
@@ -75,7 +87,7 @@ export function ProjectTable() {
         <Filter setFilters={setFilters} filterData={filterOptions} />
         <NewOffer />
       </div>
-      <OfferList offerData={offerData} />
+      <OfferList offerData={offerData} isDataLoaded={isDataLoaded} />
       <Pagination
         totalPages={totalPages}
         currentPage={currentPage}

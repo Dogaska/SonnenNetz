@@ -48,9 +48,9 @@ class Blog(models.Model):
     modified_at = models.DateTimeField(auto_now=True)
     level = models.CharField(
         max_length=10, choices=ContentLevel.choices, blank=False, null=False, default= None)
-    #applaud_count = models.PositiveIntegerField(default=0)
+    #applaud_count = models.PositiveIntegerField(default=0) # implement this later
     author = models.ForeignKey(
-        get_user_model(), on_delete=models.CASCADE, related_name='blog_posts') #created by
+        get_user_model(), on_delete=models.CASCADE, related_name='blog_posts')
     file_upload = models.FileField(upload_to ='uploads/', default= None) 
 
     def save(self, *args, **kwargs) -> None:
