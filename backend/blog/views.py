@@ -14,6 +14,7 @@ from .pagination import CustomPageNumberPagination
 from .serializers import BlogSerializer, CommentSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 
+
 # ------------------------------ Blog views ------------------------------ #
 class AllBlogsListView(APIView):
     permission_classes = [AllowAny]
@@ -25,7 +26,6 @@ class AllBlogsListView(APIView):
         filtered_queryset = self.filterset_class(request.GET, queryset=queryset).qs
         total = filtered_queryset.count()
         paginator = CustomPageNumberPagination()
-        paginator.page_size = 3
         return paginator.generate_response(filtered_queryset, BlogSerializer, request, total)
 
 class BlogDetailView(RetrieveAPIView):
