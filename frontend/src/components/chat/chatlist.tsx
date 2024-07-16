@@ -54,6 +54,7 @@ const people = [
 ];
 export function ChatList(props: { chatData: any }) {
   const { chatData } = props;
+  console.log(chatData);
   return (
     <ul role="list" className="divide-y divide-gray-100">
       Contacts

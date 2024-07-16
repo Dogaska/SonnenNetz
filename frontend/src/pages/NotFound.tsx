@@ -1,5 +1,3 @@
-import { Header } from "@/components/common/header";
-
 export function NotFound() {
   return (
     <>

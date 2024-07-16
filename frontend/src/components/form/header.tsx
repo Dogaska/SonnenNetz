@@ -1,4 +1,4 @@
-export function FormHeader(props) {
+export function FormHeader(props: { children: any }) {
   const { children } = props;
 
   return (

@@ -100,6 +100,10 @@ export function ProjectForm() {
             text="Upload your images"
             extension="PNG, JPG ... "
             size="10"
+            type={undefined}
+            accept={undefined}
+            multiple={undefined}
+            onChange={handleSubmit}
           ></FileInput>
         </div>
 
@@ -116,6 +120,10 @@ export function ProjectForm() {
             text="Upload your documents"
             extension="PDF, DOCX ... "
             size="10"
+            type={undefined}
+            accept={undefined}
+            multiple={undefined}
+            onChange={handleSubmit}
           ></FileInput>
         </div>
 

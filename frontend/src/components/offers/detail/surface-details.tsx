@@ -36,7 +36,7 @@ export function SurfaceOfferDetails() {
   const { slug } = useParams();
 
   const [isDataLoaded, setIsDataLoaded] = useState(false);
-  const [offerData, setOfferData] = useState<Post | null>(null);
+  const [offerData, setOfferData] = useState<Post>();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isFullScreen, setIsFullScreen] = useState(false);
 
@@ -60,22 +60,26 @@ export function SurfaceOfferDetails() {
   }, [slug]);
 
   const nextImage = () => {
-    setCurrentImageIndex(
-      (prevIndex) => (prevIndex + 1) % offerData.images.length
-    );
+    if (offerData) {
+      setCurrentImageIndex(
+        (prevIndex) => (prevIndex + 1) % offerData.images.length
+      );
+    }
   };
 
   const prevImage = () => {
-    setCurrentImageIndex((prevIndex) =>
-      prevIndex === 0 ? offerData.images.length - 1 : prevIndex - 1
-    );
+    if (offerData) {
+      setCurrentImageIndex((prevIndex) =>
+        prevIndex === 0 ? offerData.images.length - 1 : prevIndex - 1
+      );
+    }
   };
 
   const toggleFullScreen = () => {
     setIsFullScreen(!isFullScreen);
   };
 
-  const handleOverlayClick = (e) => {
+  const handleOverlayClick = (e: any) => {
     if (e.target.id === "fullScreenImage") {
       return;
     }
@@ -83,6 +87,7 @@ export function SurfaceOfferDetails() {
   };
 
   return (
+    offerData &&
     isDataLoaded && (
       <div className="bg-white">
         <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">

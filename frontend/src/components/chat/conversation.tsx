@@ -5,7 +5,8 @@ export function Conversation(props: {
   isLoaded: boolean;
   newMessage: any;
   setNewMessage: any;
-  viewerId: number; // Added to determine message ownership
+  viewerId: number;
+  participants: any;
 }) {
   const {
     messages,

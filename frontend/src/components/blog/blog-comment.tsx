@@ -31,7 +31,7 @@ export function BlogComment() {
   const { register, reset, handleSubmit } = useForm();
   const token = localStorage.getItem("Token");
 
-  const submission = (data: { comment: string }) => {
+  const submission = (data: any) => {
     if (token) {
       console.log(data); // Logging the data before sending
       AxiosInstance.post(`api/resources/${slug}/commentpost/`, {

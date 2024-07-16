@@ -1,0 +1,9 @@
+export declare function Header(): import("react/jsx-runtime").JSX.Element;
+export declare function HeaderProjectOffer(): import("react/jsx-runtime").JSX.Element;
+export declare function HeaderProjectFeatures(): import("react/jsx-runtime").JSX.Element;
+export declare function HeaderSurfaceOffer(): import("react/jsx-runtime").JSX.Element;
+export declare function HeaderSurfaceFeatures(): import("react/jsx-runtime").JSX.Element;
+export declare function HeaderInvestmentOffer(): import("react/jsx-runtime").JSX.Element;
+export declare function HeaderInvestmentFeatures(): import("react/jsx-runtime").JSX.Element;
+export declare function HeaderOffers(): import("react/jsx-runtime").JSX.Element;
+export declare function HeaderBlogs(): import("react/jsx-runtime").JSX.Element;

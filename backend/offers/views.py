@@ -8,12 +8,10 @@ from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.response import Response
 
 from .pagination import CustomPageNumberPagination
-from .models import SurfaceOffer, InvestmentOffer ,ProjectOffer, Offer,  OfferImage, OfferFile
+from .models import SurfaceOffer, InvestmentOffer ,ProjectOffer
 from .serializers import SurfaceOfferSerializer, InvestmentOfferSerializer, ProjectOfferSerializer
 from .filters import CombinedOfferFilter
 
-# Constants
-NUM_OFFER_PER_PAGE = 10
 
 
 class OfferMultiModelViewSet(ViewSet):
@@ -27,7 +25,6 @@ class OfferMultiModelViewSet(ViewSet):
     #    else:
     #        permission_classes = [IsAuthenticated]
     #    return [permission() for permission in permission_classes]
-
 
     def list(self, request):
 
@@ -51,29 +48,6 @@ class OfferMultiModelViewSet(ViewSet):
             serialized_results.append(serializer.data)
 
         return paginator.generate_response(serialized_results, total=total)
-
-    #def list(self, request):
-    #    surface_offer_queryset = SurfaceOffer.objects.all()
-    #    investment_offer_queryset = InvestmentOffer.objects.all()
-#
-    #    all_offers = list(surface_offer_queryset) + list(investment_offer_queryset)
-#
-    #    # Use the custom paginator to paginate the combined offers
-    #    paginator = CustomPageNumberPagination()
-    #    result_page = paginator.paginate_queryset(all_offers, request)
-    #    if not result_page:
-    #        return Response({"message": "No offers found"}, status=404)
-#
-    #    # Serialize page objects
-    #    serialized_results = []
-    #    for item in result_page:
-    #        if isinstance(item, SurfaceOffer):
-    #            serializer = SurfaceOfferSerializer(item)
-    #        elif isinstance(item, InvestmentOffer):
-    #            serializer = InvestmentOfferSerializer(item)
-    #        serialized_results.append(serializer.data)
-#
-    #    return paginator.get_paginated_response(serialized_results)
 
 
     def create(self, request):
