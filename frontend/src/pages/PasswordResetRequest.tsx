@@ -1,4 +1,3 @@
-import { useNavigate, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import AxiosInstance from "../components/axios/AxiosInstance";
 import { FormHeader } from "../components/form/header";
@@ -10,15 +9,12 @@ import { useState } from "react";
 export function PasswordResetRequest() {
   const { register, handleSubmit } = useForm();
 
-  const navigate = useNavigate();
-  const location = useLocation();
-
   const [showMessage, setShowMessage] = useState(false);
 
-  const submission = (data: { email: any; password: any }) => {
+  const submission = (data: any) => {
     AxiosInstance.post(`api/password_reset/`, {
       email: data.email,
-    }).then((response) => {
+    }).then(() => {
       setShowMessage(true);
     });
   };

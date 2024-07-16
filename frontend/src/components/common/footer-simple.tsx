@@ -1,88 +1,3 @@
-const logos = [
-  {
-    name: "sonnennetz",
-    logo: "../assets/logos/sonnennetz.jpeg",
-    link: "/home",
-  },
-  {
-    name: "applestore",
-    logo: "../assets/logos/applestore.jpeg",
-    link: "#",
-  },
-  {
-    name: "googleplay",
-    logo: "../assets/logos/googleplay.jpeg",
-    link: "#",
-  },
-  {
-    name: "x",
-    logo: "../assets/logos/x.jpeg",
-    link: "#",
-  },
-  {
-    name: "instagram",
-    logo: "../assets/logos/instagram.jpeg",
-    link: "#",
-  },
-  {
-    name: "linkedin",
-    logo: "../assets/logos/linkedin.jpeg",
-    link: "#",
-  },
-  {
-    name: "youtube",
-    logo: "../assets/logos/youtube.jpeg",
-    link: "#",
-  },
-];
-
-const download_text = "Download our app now from stores";
-
-const sections = [
-  {
-    name: "SonnenNetz",
-    subsections: [
-      { name: "Home", link: "/home" },
-      { name: "Projects", link: "/projects" },
-      { name: "Resources", link: "/resources" },
-      { name: "About", link: "/about" },
-    ],
-  },
-  {
-    name: "Products",
-    subsections: [
-      { name: "Info Point", link: "/info#" },
-      { name: "Marketplace", link: "/marketplace#" },
-      { name: "Playground", link: "/playground#" },
-    ],
-  },
-  {
-    name: "Resources",
-    subsections: [
-      { name: "FAQs", link: "/faqs#" },
-      { name: "Quick Start", link: "/quick-start#" },
-    ],
-  },
-  {
-    name: "Blogs",
-    subsections: [
-      { name: "Most Popular", link: "/most-popular#" },
-      { name: "New Updates", link: "/new-updates#" },
-      { name: "Editorial", link: "/editorial#" },
-    ],
-  },
-  {
-    name: "Support",
-    subsections: [
-      { name: "Expert Support", link: "/expert-support#" },
-      { name: "Cookies", link: "/cookies#" },
-      { name: "Licence", link: "/licence#" },
-      { name: "Terms & Conditions", link: "/terms-and-conditions" },
-      { name: "Privacy Policy", link: "/privacy-policy" },
-    ],
-  },
-];
-
 const copyright_text = "All rights reserved.";
 
 function FooterSimple() {
@@ -97,7 +12,6 @@ function FooterSimple() {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-
               <defs>
                 <linearGradient
                   id="paint0_linear_9129_4680"

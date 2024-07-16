@@ -16,7 +16,7 @@ export function LoginForm() {
 
   const [showMessage, setShowMessage] = useState(false);
 
-  const submission = (data: { email: any; password: any }) => {
+  const submission = (data: any) => {
     AxiosInstance.post(`login/`, {
       email: data.email,
       password: data.password,

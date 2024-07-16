@@ -4,26 +4,33 @@ import { FormButton } from "../../form/button";
 import { FormLabel } from "../../form/label";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AxiosInstance from "../../axios/AxiosInstance";
 
+interface FilePreview {
+  name: string;
+  url: string;
+  size: number;
+}
+
 export function SurfaceForm() {
-  const { register, reset, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm();
   const [coverImage, setCoverImage] = useState(null);
-  const [coverImagePreview, setCoverImagePreview] = useState(null);
+  const [coverImagePreview, setCoverImagePreview] =
+    useState<FilePreview | null>(null);
   const [pictures, setPictures] = useState([]);
   const [documents, setDocuments] = useState([]);
-  const [picturePreviews, setPicturePreviews] = useState([]);
-  const [documentPreviews, setDocumentPreviews] = useState([]);
+  const [picturePreviews, setPicturePreviews] = useState<FilePreview[]>([]);
+  const [documentPreviews, setDocumentPreviews] = useState<FilePreview[]>([]);
   const [showMessage, setShowMessage] = useState(false);
   const [isPostSuccessful, setIsPostSuccessful] = useState(false);
 
   const navigate = useNavigate();
 
-  const handleCoverImageChange = (event) => {
+  const handleCoverImageChange = (event: { target: { files: any[] } }) => {
     const file = event.target.files[0];
     if (file) {
-      const imagePreview = {
+      const imagePreview: any = {
         name: file.name,
         url: URL.createObjectURL(file),
         size: file.size,
@@ -33,9 +40,11 @@ export function SurfaceForm() {
     }
   };
 
-  const handlePicturesChange = (event) => {
-    const filesArray = Array.from(event.target.files);
-    const filePreviews = filesArray.map((file) => ({
+  const handlePicturesChange = (event: {
+    target: { files: Iterable<unknown> | ArrayLike<unknown> };
+  }) => {
+    const filesArray: any = Array.from(event.target.files);
+    const filePreviews: any = filesArray.map((file: any) => ({
       name: file.name,
       url: URL.createObjectURL(file),
       size: file.size,
@@ -44,9 +53,9 @@ export function SurfaceForm() {
     setPicturePreviews(filePreviews);
   };
 
-  const handleDocumentsChange = (event) => {
-    const filesArray = Array.from(event.target.files);
-    const filePreviews = filesArray.map((file) => ({
+  const handleDocumentsChange = (event: any) => {
+    const filesArray: any = Array.from(event.target.files);
+    const filePreviews: any = filesArray.map((file: any) => ({
       name: file.name,
       url: URL.createObjectURL(file),
       size: file.size,
@@ -55,19 +64,24 @@ export function SurfaceForm() {
     setDocumentPreviews(filePreviews);
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: ArrayLike<unknown> | { [s: string]: unknown }) => {
     const formData = new FormData();
     Object.entries(data).forEach(([key, value]) => {
-      formData.append(key, value);
+      if (typeof value === "string" || value instanceof Blob) {
+        formData.append(key, value);
+      } else {
+        formData.append(key, String(value));
+      }
     });
-
-    formData.append("cover_image", coverImage);
-    pictures.forEach((picture) => {
-      formData.append("images", picture);
-    });
-    documents.forEach((document) => {
-      formData.append("files", document);
-    });
+    if (coverImage) {
+      formData.append("cover_image", coverImage);
+      pictures.forEach((picture) => {
+        formData.append("images", picture);
+      });
+      documents.forEach((document) => {
+        formData.append("files", document);
+      });
+    }
 
     formData.append("offer_type", "Surface Offer");
 
@@ -312,7 +326,7 @@ export function SurfaceForm() {
             multiple={true}
           ></FileInput>
           <div className="preview-container">
-            {picturePreviews.map((file, index) => (
+            {picturePreviews.map((file: any, index: number) => (
               <div key={index} className="preview">
                 <a href={file.url} target="_blank" rel="noopener noreferrer">
                   {file.name}
@@ -341,7 +355,7 @@ export function SurfaceForm() {
             multiple={true}
           ></FileInput>
           <div className="preview-container">
-            {documentPreviews.map((file, index) => (
+            {documentPreviews.map((file: any, index: number) => (
               <div key={index} className="preview">
                 <a href={file.url} target="_blank" rel="noopener noreferrer">
                   {file.name}

@@ -14,14 +14,7 @@ export function SignupForm() {
 
   const [showMessage, setShowMessage] = useState(false);
 
-  const submission = (data: {
-    first_name: any;
-    last_name: any;
-    username: any;
-    email: any;
-    password: any;
-    birthday: any;
-  }) => {
+  const submission = (data: any) => {
     AxiosInstance.post(`signup/`, {
       first_name: data.first_name,
       last_name: data.last_name,
