@@ -56,44 +56,55 @@ Note!: Here is a helper link which you can find similar instructions --> https:/
     ```bash
     cd backend
     ```
+    
 2.  Check your python version. It should be Python 3.10.
     ```bash
     python –version
-    ```   
+    ```
+    
 3.  Create a virtual environment.
     First, install python3.10 and "venv" virtual environment for python3.10.
     ```bash
     sudo apt-get install python3.10 python3.10-venv
     ```
+    
     - If you have already installed python3.10, you can only install the venv.
     ```bash
     sudo apt install python3.10-venv
     ```
+    
 4.  After installations, create the virtual environment. We also used "venv" as the name of the virtual environment.
     ```bash
     python3.10 -m venv venv
     ```
+    
 5.  You will be able to activate the virtual environment.
     ```bash
     source venv/bin/activate
     ```
+    
 6.  Check your pip version
     ```bash
     pip --version
     ```
+    
     If pip isn’t already installed, then first try to bootstrap it from the standard library:
     ```bash
     python3 -m pip install --upgrade pip setuptools wheel
     ```
+    
 8.  Install requirements.
     ```bash
     pip install -r requirements.txt
     ```
+    
 9.  Lastly, in your backend directorm run following commands.
     ```bash
     python manage.py makemigrations
     python manage.py migrate
     python manage.py runserver
     ```
+    
 10. If you run the server you will see the link.
+   
     ![image](https://github.com/user-attachments/assets/710d2415-9360-43dd-abd2-6e0ecf8f72ec)
