@@ -32,7 +32,7 @@ SECRET_KEY = 'django-insecure-0rzj4a7f_#u(gwc^*n&ygyg)1vx62lkd!zy5g#1wk6)_+0s39s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -73,14 +73,6 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
 ]
 
-
-AUTH_USER_MODEL = "users.CustomUser"
-
-AUTHENTICATION_BACKEND = [
-    "user.auth_backend.EmailAuthBackend"
-]
-
-
 ROOT_URLCONF = "sonnennetz.urls"
 
 TEMPLATES = [
@@ -98,6 +90,14 @@ TEMPLATES = [
         },
     },
 ]
+
+AUTH_USER_MODEL = "users.CustomUser"
+
+AUTHENTICATION_BACKEND = [
+    "user.auth_backend.EmailAuthBackend"
+]
+
+
 
 WSGI_APPLICATION = "sonnennetz.wsgi.app"
 
@@ -187,4 +187,4 @@ CHANNEL_LAYERS = {
 }
 
 # Set ASGI application to handle routing
-ASGI_APPLICATION = 'sonnnennetz.asgi.application'
+# ASGI_APPLICATION = 'sonnnennetz.asgi.application'

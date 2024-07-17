@@ -21,7 +21,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "https://delightful-water-0101f9203.5.azurestaticapps.net/",
+    "https://delightful-water-0101f9203.5.azurestaticapps.net",
 ]
 
 STORAGES = {
@@ -46,7 +46,6 @@ DATABASES = {
     }
 }
 
-STATIC_ROOT = BASE_DIR/'staticfiles'
 
 
 # Logging of the errors
@@ -69,8 +68,6 @@ LOGGING = {
 }
 
 
-
-
 # Email settings
 ADMINS = [("Eray", "eray.yldz@tum.de")]
 
@@ -81,3 +78,6 @@ EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = "SONNENNETZ"
 EMAIL_HOST_USER = os.environ["EMAIL_HOST_USER"]
 EMAIL_HOST_PASSWORD = os.environ["EMAIL_HOST_PASSWORD"]
+
+
+STATIC_ROOT = BASE_DIR/'staticfiles'
