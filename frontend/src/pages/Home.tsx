@@ -34,7 +34,7 @@ export function Home() {
             </div>
             <img
               className="lg:mx-10 mx-auto rounded-lg"
-              src="src/assets/images/picture1.png"
+              src="/assets/images/picture1.png"
               alt="about Us image"
             />
           </div>
@@ -47,7 +47,7 @@ export function Home() {
             {/* Move the image to the first position */}
             <img
               className="lg:-mx-10 mx-auto rounded-lg"
-              src="src/assets/images/picture2.png"
+              src="/assets/images/picture2.png"
               alt="about Us image"
             />
 

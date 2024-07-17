@@ -4,25 +4,25 @@ import { FooterSimple } from "../components/common/footer-simple";
 const team = [
   {
     name: "Yufei Xu",
-    image: "/src/assets/images/Yufei.png",
+    image: "/assets/images/Yufei.png",
     profession: "Product Management",
     email: "yufei.xu@tum.de",
   },
   {
     name: "Anja Senkmüller",
-    image: "/src/assets/images/Anja.jpg",
+    image: "/assets/images/Anja.jpg",
     profession: "Business Development",
     email: "anja.senkmueller@tum.de",
   },
   {
     name: "Nigar Doga Karacik",
-    image: "/src/assets/images/Doga.png",
+    image: "/assets/images/Doga.png",
     profession: "Full-Stack Development",
     email: "ndogakaracik@tum.de",
   },
   {
     name: "Eray Yildiz",
-    image: "/src/assets/images/Eray.png",
+    image: "/assets/images/Eray.png",
     profession: "Full-Stack Development",
     email: "eray.yildiz@tum.de",
   },
