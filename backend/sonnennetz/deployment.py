@@ -3,6 +3,7 @@ from .settings import *
 from .settings import BASE_DIR
 
 ALLOWED_HOSTS = [os.environ["WEBSITE_HOSTNAME"]]
+print(ALLOWED_HOSTS)
 CSRF_TRUSTED_ORIGINS = ["https://" + os.environ["WEBSITE_HOSTNAME"]]
 DEBUG = False
 SECRET_KEY = os.environ['MY_SECRET_KEY']
@@ -48,7 +49,31 @@ DATABASES = {
 STATIC_ROOT = BASE_DIR/'staticfiles'
 
 
+# Logging of the errors
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    },
+}
+
+
+
+
 # Email settings
+ADMINS = [("Eray", "eray.yldz@tum.de")]
+
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
