@@ -59,7 +59,7 @@ export function BlogCarousel() {
                     <div className="block">
                       <img
                         className="rounded-xl h-80 w-auto"
-                        src="/src/assets/images/FAQ.png"
+                        src="/assets/images/FAQ.png"
                         alt="Frequently asked questions"
                       />
                     </div>
@@ -97,7 +97,7 @@ export function BlogCarousel() {
                     <div className="block">
                       <img
                         className="rounded-xl h-80 w-auto"
-                        src="/src/assets/images/online_consultation_tools.png"
+                        src="/assets/images/online_consultation_tools.png"
                         alt="Project Achievements of Figma"
                       />
                     </div>
@@ -135,7 +135,7 @@ export function BlogCarousel() {
                     <div className="block">
                       <img
                         className="rounded-xl h-80 w-auto"
-                        src="/src/assets/images/Guide-for-creating-a-REC.png"
+                        src="/assets/images/Guide-for-creating-a-REC.png"
                         alt="Guide-for-creating-a-REC"
                       />
                     </div>
