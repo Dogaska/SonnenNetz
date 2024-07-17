@@ -5,11 +5,12 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "clean": "rimraf src/**/*.js src/**/*.d.ts",
     "dev": "vite",
     "start": "react-scripts start",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
-    "build": "vite build",
+    "build": "npm run clean && vite build",
     "preview": "vite preview",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

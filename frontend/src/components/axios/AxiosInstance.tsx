@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const baseUrl = "https://yildizzeray.pythonanywhere.com/"; // for production time
-// const baseUrl = "http://127.0.0.1:8000/"; Use this url in local development
+const baseUrl = "http://127.0.0.1:8000/";
+//const baseUrl = "http://yildizzeray.pythonanywhere.com/";
 
 /* Mechanism enables us to send data from backend to frontend */
 const AxiosInstance = axios.create({

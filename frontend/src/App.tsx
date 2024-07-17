@@ -27,7 +27,7 @@ export default function App() {
         <Route path="/resources/:slug" element={<BlogArticle />} />
         <Route path="/projects" element={<Projects />} />
         <Route
-          path="/projects/surface-details/:slug/"
+          path="/projects/surface-details/:slug"
           element={<SurfaceFeatures />}
         />
         <Route
