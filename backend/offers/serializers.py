@@ -12,7 +12,7 @@ class OfferFileSerializer(ModelSerializer):
         model = OfferFile
         fields = ['id', 'file']
 
-class OfferSerializer(Serializer):
+class OfferSerializer(ModelSerializer):
     offer_owner_first_name = CharField(source='created_by.first_name', read_only=True)
     offer_owner_last_name = CharField(source='created_by.last_name', read_only=True)
 

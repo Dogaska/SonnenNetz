@@ -30,9 +30,9 @@ env.read_env(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app']
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -68,9 +68,12 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
-    ]
+]
+
+# CORS_ALLOW_ALL_ORIGINS = True
 
 AUTH_USER_MODEL = "users.CustomUser"
 
@@ -178,7 +181,7 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 SUMMERNOTE_THEME = 'bs4'
 
-CORS_ORIGIN_ALLOW_ALL = True
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
