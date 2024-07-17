@@ -1,7 +1,9 @@
 import axios from "axios";
 
-const baseUrl = "http://127.0.0.1:8000/";
-//const baseUrl = "http://yildizzeray.pythonanywhere.com/";
+const isDevelopment = import.meta.env.MODE === "development";
+const baseUrl = isDevelopment
+  ? import.meta.env.VITE_API_BASE_URL_LOCAL
+  : import.meta.env.VITE_API_BASE_URL_PROD;
 
 /* Mechanism enables us to send data from backend to frontend */
 const AxiosInstance = axios.create({
