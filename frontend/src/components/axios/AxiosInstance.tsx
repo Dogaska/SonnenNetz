@@ -1,5 +1,5 @@
 import axios from "axios";
-import Cookies from "js-cookie"; // Ensure the correct import statement for js-cookie
+import Cookies from "js-cookie";
 
 const isDevelopment = import.meta.env.MODE === "development";
 const baseUrl = isDevelopment
