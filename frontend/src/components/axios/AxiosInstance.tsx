@@ -16,17 +16,18 @@ const AxiosInstance = axios.create({
 });
 
 // Adds CSRF to communication
-AxiosInstance.interceptors.request.use((config) => {
-  const csrfToken = Cookies.get("csrftoken");
-  if (csrfToken) {
-    config.headers["X-CSRFToken"] = csrfToken;
-  }
-  return config; // Ensure to return the config object
-});
+//AxiosInstance.interceptors.request.use((config) => {
+//  const csrfToken = Cookies.get("csrftoken");
+//  if (csrfToken) {
+//    config.headers["X-CSRFToken"] = csrfToken;
+//  }
+//  return config; // Ensure to return the config object
+//});
 
 AxiosInstance.interceptors.request.use((config) => {
   const token = localStorage.getItem("Token");
   config.headers.Authorization = token ? `Token ${token}` : "";
+  console.log(baseUrl);
   return config;
 });
 

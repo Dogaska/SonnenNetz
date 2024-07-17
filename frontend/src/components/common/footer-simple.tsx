@@ -2,10 +2,10 @@ const copyright_text = "All rights reserved.";
 
 function FooterSimple() {
   return (
-    <footer className="w-full py-14">
+    <footer className="w-full py-14 z-50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto">
-          <a href="https://pagedone.io/" className="flex justify-center ">
+          <a className="flex justify-center ">
             <svg
               className="w-40 h-8"
               viewBox="0 0 164 33"
@@ -40,34 +40,37 @@ function FooterSimple() {
           </a>
           <ul className="text-lg flex items-center justify-center flex-col gap-7 md:flex-row md:gap-12 transition-all duration-500 py-16 mb-10 border-b border-gray-200">
             <li>
-              <a href="#" className="text-gray-800 hover:text-gray-900">
+              <a href="/home" className="text-gray-800 hover:text-gray-900">
                 SonnenNetz
               </a>
             </li>
             <li>
-              <a href="#" className=" text-gray-800 hover:text-gray-900">
-                Resources
+              <a
+                href="/resources"
+                className=" text-gray-800 hover:text-gray-900"
+              >
+                Blog
               </a>
             </li>
             <li>
-              <a href="#" className=" text-gray-800 hover:text-gray-900">
+              <a href="projects" className=" text-gray-800 hover:text-gray-900">
                 Projects
               </a>
             </li>
             <li>
-              <a href="#" className=" text-gray-800 hover:text-gray-900">
+              <a href="/about" className=" text-gray-800 hover:text-gray-900">
                 About Us
               </a>
             </li>
             <li>
-              <a href="#" className=" text-gray-800 hover:text-gray-900">
-                Support
+              <a href="/login" className=" text-gray-800 hover:text-gray-900">
+                Login
               </a>
             </li>
           </ul>
           <div className="flex space-x-10 justify-center items-center mb-14">
             <a
-              href="#"
+              href="/login"
               className="block  text-gray-900 transition-all duration-500 hover:text-indigo-600 "
             >
               <svg
