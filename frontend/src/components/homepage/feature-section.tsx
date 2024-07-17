@@ -9,12 +9,13 @@ const features = [
   {
     name: "Making easy to build community",
     description:
-      "We meets the project creators, surface providers and investors, so they can share and access project details and shape their dream energy community.",
+      "We match investors with surface providers, so they can share and access project details and shape their dream energy community.",
     icon: GlobeAltIcon,
   },
   {
     name: "Trust and security",
-    description: "All of the published projects are verified by our team.",
+    description:
+      "We verify all published surface as well as investment offers by our expert team.",
     icon: LockClosedIcon,
   },
   {
@@ -26,7 +27,7 @@ const features = [
   {
     name: "Active communication channels",
     description:
-      "We provide internal communication services for energy communities and integrate new members into their respective places, so they can always actively participate the community processes.",
+      "We offer community members a place to connect via our community chat and exchange details about their energy community plans.",
     icon: ChatBubbleLeftRightIcon,
   },
 ];

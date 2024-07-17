@@ -78,9 +78,9 @@ export function HeaderOffers() {
           Offers
         </h1>
         <h2 className="text-xl tracking-tight text-gray-500 mt-8 italic">
-          Take a look at our different options, including projects, suitable PV
-          surfaces, and investment opportunities. Choose the one that suits you
-          best!
+          Take a look at the different options, and check out PV surfaces and
+          investment offers in your area to find other like-minded people and
+          start your energy community today!
         </h2>
       </div>
     </header>

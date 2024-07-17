@@ -28,7 +28,11 @@ export function HeroSection() {
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
               Platform to find your Energy Community
             </h1>
-            <p className="mt-6 text-lg leading-8 text-gray-600"></p>
+            <p className="mt-8 text-lg font-bold leading-8 text-gray-400">
+              We are SonnenNetz, a matchmaking platform for energy communities.
+              Our mission is to enable individuals to form energy communities,
+              one match at a time!
+            </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <a
                 href="login"
