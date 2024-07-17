@@ -1,12 +1,6 @@
 export function BlogCarousel() {
   return (
     <>
-      <style
-        dangerouslySetInnerHTML={{
-          __html:
-            '\n        .swiper-slide.swiper-slide-active>.slide\\:w-full {\n            width: 100%;\n        }\n\n        .swiper-button-prev:after,\n        .swiper-rtl .swiper-button-next:after {\n            content: "" !important;\n        }\n        .swiper-wrapper {\n            height: max-content !important;\n            \n        }\n\n        .swiper-button-next:after,\n        .swiper-rtl .swiper-button-prev:after {\n            content: "" !important;\n        }\n\n        .swiper-button-next,\n        .swiper-button-prev {\n            position: relative !important;\n        }\n    ',
-        }}
-      />
       <section className="py-12 relative">
         <div className="w-full max-w-7xl px-6 lg:px-8 mx-auto">
           <div className="flex items-center justify-between flex-col sm:flex-row gap-y-4 mb-5">
@@ -64,8 +58,9 @@ export function BlogCarousel() {
                   <div className="flex items-center flex-col gap-8 w-full group">
                     <div className="block">
                       <img
-                        src="https://pagedone.io/asset/uploads/1707480017.png"
-                        alt="Project Achievements of Sketch"
+                        className="rounded-xl h-80 w-auto"
+                        src="/src/assets/images/FAQ.png"
+                        alt="Frequently asked questions"
                       />
                     </div>
                     <div className="flex items-center justify-between max-w-[406px] lg:max-w-full w-full lg:px-0">
@@ -77,93 +72,102 @@ export function BlogCarousel() {
                           Initial steps to create an energy community.
                         </p>
                       </div>
-                      <button className=" border border-black py-2 px-3.5 rounded-full transition-all duration-300 group-hover:bg-black">
-                        <svg
-                          className="stroke-black transition-all duration-300 group-hover:stroke-white"
-                          xmlns="http://www.w3.org/2000/svg"
-                          width={17}
-                          height={16}
-                          viewBox="0 0 17 16"
-                          fill="none"
-                        >
-                          <path
-                            d="M9.62553 4L13.6664 8.0409M13.6664 8.0409L9.62553 12.0818M13.6664 8.0409L1.6665 8.0409"
-                            stroke=""
-                            strokeWidth="1.6"
-                            strokeLinecap="round"
-                          />
-                        </svg>
-                      </button>
+                      <a href="/resources/frequently-asked-questions">
+                        <button className=" border border-black py-2 px-3.5 rounded-full transition-all duration-300 group-hover:bg-black">
+                          <svg
+                            className="stroke-black transition-all duration-300 group-hover:stroke-white"
+                            xmlns="http://www.w3.org/2000/svg"
+                            width={17}
+                            height={16}
+                            viewBox="0 0 17 16"
+                            fill="none"
+                          >
+                            <path
+                              d="M9.62553 4L13.6664 8.0409M13.6664 8.0409L9.62553 12.0818M13.6664 8.0409L1.6665 8.0409"
+                              stroke=""
+                              strokeWidth="1.6"
+                              strokeLinecap="round"
+                            />
+                          </svg>
+                        </button>
+                      </a>
                     </div>
                   </div>
                   <div className="group flex items-center flex-col gap-8 w-full">
                     <div className="block">
                       <img
-                        src="https://pagedone.io/asset/uploads/1707480034.png"
+                        className="rounded-xl h-80 w-auto"
+                        src="/src/assets/images/online_consultation_tools.png"
                         alt="Project Achievements of Figma"
                       />
                     </div>
                     <div className="flex items-center justify-between max-w-[406px] lg:max-w-full w-full lg:px-0">
                       <div className="block">
                         <h4 className="text-2xl font-manrope font-semibold text-gray-900 mb-1">
-                          Regulatories
+                          Online Consultation tools
                         </h4>
                         <p className="font-medium text-lg text-gray-400">
-                          Political & legal
+                          Technical
                         </p>
                       </div>
-                      <button className=" border border-black py-2 px-3.5 rounded-full transition-all duration-300 group-hover:bg-black">
-                        <svg
-                          className="stroke-black transition-all duration-300 group-hover:stroke-white"
-                          xmlns="http://www.w3.org/2000/svg"
-                          width={17}
-                          height={16}
-                          viewBox="0 0 17 16"
-                          fill="none"
-                        >
-                          <path
-                            d="M9.62553 4L13.6664 8.0409M13.6664 8.0409L9.62553 12.0818M13.6664 8.0409L1.6665 8.0409"
-                            stroke=""
-                            strokeWidth="1.6"
-                            strokeLinecap="round"
-                          />
-                        </svg>
-                      </button>
+                      <a href="https://app.everyone-energy.de/">
+                        <button className=" border border-black py-2 px-3.5 rounded-full transition-all duration-300 group-hover:bg-black">
+                          <svg
+                            className="stroke-black transition-all duration-300 group-hover:stroke-white"
+                            xmlns="http://www.w3.org/2000/svg"
+                            width={17}
+                            height={16}
+                            viewBox="0 0 17 16"
+                            fill="none"
+                          >
+                            <path
+                              d="M9.62553 4L13.6664 8.0409M13.6664 8.0409L9.62553 12.0818M13.6664 8.0409L1.6665 8.0409"
+                              stroke=""
+                              strokeWidth="1.6"
+                              strokeLinecap="round"
+                            />
+                          </svg>
+                        </button>
+                      </a>
                     </div>
                   </div>
                   <div className="group flex items-center flex-col gap-8 w-full md:w-1/2 mx-auto md:col-span-2 lg:col-span-1 lg:w-full">
                     <div className="block">
                       <img
-                        src="https://pagedone.io/asset/uploads/1707480044.png"
-                        alt="Project Achievements of Frame.io"
+                        className="rounded-xl h-80 w-auto"
+                        src="/src/assets/images/Guide-for-creating-a-REC.png"
+                        alt="Guide-for-creating-a-REC"
                       />
                     </div>
                     <div className="flex items-center justify-between max-w-[406px] lg:max-w-full w-full lg:px-0">
                       <div className="block">
                         <h4 className="text-2xl font-manrope font-semibold text-gray-900 mb-1">
-                          Technical Questions
+                          Guide to creating renewable energy communities using a
+                          participative approach - Document
                         </h4>
                         <p className="font-medium text-lg text-gray-400">
-                          *****
+                          Guide
                         </p>
                       </div>
-                      <button className=" border border-black py-2 px-3.5 rounded-full transition-all duration-300 group-hover:bg-black">
-                        <svg
-                          className="stroke-black transition-all duration-300 group-hover:stroke-white"
-                          xmlns="http://www.w3.org/2000/svg"
-                          width={17}
-                          height={16}
-                          viewBox="0 0 17 16"
-                          fill="none"
-                        >
-                          <path
-                            d="M9.62553 4L13.6664 8.0409M13.6664 8.0409L9.62553 12.0818M13.6664 8.0409L1.6665 8.0409"
-                            stroke=""
-                            strokeWidth="1.6"
-                            strokeLinecap="round"
-                          />
-                        </svg>
-                      </button>
+                      <a href="https://energycommunityplatform.eu/wp-content/uploads/2023/05/Guide-for-creating-a-REC-20230321.pdf">
+                        <button className=" border border-black py-2 px-3.5 rounded-full transition-all duration-300 group-hover:bg-black">
+                          <svg
+                            className="stroke-black transition-all duration-300 group-hover:stroke-white"
+                            xmlns="http://www.w3.org/2000/svg"
+                            width={17}
+                            height={16}
+                            viewBox="0 0 17 16"
+                            fill="none"
+                          >
+                            <path
+                              d="M9.62553 4L13.6664 8.0409M13.6664 8.0409L9.62553 12.0818M13.6664 8.0409L1.6665 8.0409"
+                              stroke=""
+                              strokeWidth="1.6"
+                              strokeLinecap="round"
+                            />
+                          </svg>
+                        </button>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -171,7 +175,7 @@ export function BlogCarousel() {
             </section>
           </div>
         </div>
-        <a href="resources">
+        <a href="/resources">
           <button className="flex items-center justify-center py-3.5 px-7 rounded-full font-semibold text-base text-white bg-indigo-600 shadow-sm shadow-transparent transition-all duration-300 hover:shadow-indigo-200 hover:bg-indigo-700 w-max mx-auto">
             View More
           </button>
